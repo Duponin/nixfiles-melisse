@@ -1,5 +1,3 @@
 { config, ... }: {
-  prometheus = {
-    enable = true;
-  }
+  services.prometheus.enable = true;
 }
