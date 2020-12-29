@@ -1,0 +1,5 @@
+{ config, ... }: {
+  prometheus = {
+    enable = true;
+  }
+}

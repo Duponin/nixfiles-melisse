@@ -2,6 +2,7 @@
   imports = [ # Include the results of the hardware scan.
     ../../common
     ./hardware-configuration.nix
+    ./prometheus.nix
   ];
 
   # Use the GRUB 2 boot loader.
