@@ -18,6 +18,7 @@
       }
       {
         job_name = "netdata";
+        metrics_path = "/api/v1/allmetrics";
         static_configs = [
           {
             targets = [
