@@ -17,6 +17,9 @@
         ];
       }
     ];
+    ruleFiles = [
+      /etc/nixfiles/configuration/monitoring/rules.d/system.yml
+    ];
     alertmanager = {
       enable = true;
       listenAddress = "127.0.0.1";
@@ -45,6 +48,11 @@
         ];
       };
     };
+    alertmanagers = [ {
+      static_configs = [ {
+        targets = [ "127.0.0.1:9093" ];
+      } ];
+    } ];
   };
   services.grafana = {
     enable = true;
