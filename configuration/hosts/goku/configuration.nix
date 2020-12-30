@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../monitoring/prometheus.nix
     ../../monitoring/node-exporter.nix
+    ../../monitoring/netdata.nix
   ];
 
   # Use the GRUB 2 boot loader.
