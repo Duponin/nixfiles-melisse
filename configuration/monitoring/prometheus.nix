@@ -61,6 +61,9 @@
           # editable = true;
         }
       ];
+      dashboards = [
+        { options.path = "/etc/nixfiles/configuration/monitoring/grafana-dashboards"; }
+      ];
     };
   };
 }
