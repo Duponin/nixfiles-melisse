@@ -51,5 +51,15 @@
     addr = "127.0.0.1";
     domain = "localhost";
     rootUrl = "http://localhost";
+    provision = {
+      enable = true;
+      datasources = [
+        {
+          name = "prometheus";
+          type = "prometheus";
+          url = "127.0.0.1:9090";
+        }
+      ];
+    };
   };
 }
