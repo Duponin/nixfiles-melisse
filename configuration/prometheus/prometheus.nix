@@ -1,20 +1,6 @@
 { config, ... }: {
   services.prometheus = {
     enable = true;
-    rules = [
-      ''
-        ALERT node_down
-        IF up == 0
-        FOR 1m
-        LABELS {
-          severity="critical"
-        }
-        ANNOTATIONS {
-          summary = "{{$labels.alias}}: Node is down.",
-          description = "{{$labels.alias}} has been down."
-        }
-      ''
-    ];
     scrapeConfigs = [
       {
         job_name = "node";
