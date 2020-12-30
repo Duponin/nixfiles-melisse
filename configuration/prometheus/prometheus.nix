@@ -55,9 +55,9 @@
       enable = true;
       datasources = [
         {
-          name = "prometheus";
+          name = "Prometheus";
           type = "prometheus";
-          url = "127.0.0.1:9090";
+          url = "http://127.0.0.1:9090";
         }
       ];
     };
