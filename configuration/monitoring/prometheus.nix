@@ -16,6 +16,21 @@
           }
         ];
       }
+      {
+        job_name = "netdata";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:19999"
+            ];
+            labels = {
+              alias = "netdata.example.com";
+            };
+          }
+        ];
+        params.format = [ "prometheus" ]
+        honor_labels = true;
+      }
     ];
     ruleFiles = [
       /etc/nixfiles/configuration/monitoring/rules.d/system.yml
