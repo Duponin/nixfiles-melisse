@@ -28,7 +28,7 @@
             };
           }
         ];
-        params.format = [ "prometheus" ]
+        params.format = [ "prometheus" ];
         honor_labels = true;
       }
     ];
