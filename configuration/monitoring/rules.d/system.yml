@@ -1,0 +1,9 @@
+# Can't use {{ $labels.instance }} mapping yet... :(
+groups:
+  - name: system
+  rules:
+  - alert: node_down
+    expr: up == 0
+    annotations:
+      summary: node down.
+      description: node has been down.
