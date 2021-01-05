@@ -38,5 +38,37 @@
 
   services = { openssh.enable = true; };
 
+  # Matrix / postgresql config
+  # IF INITIAL SCRIPT SEEMS TO BE NOT EXECUTED...
+  # FOUND ON https://nixos.wiki/wiki/PostgreSQL
+  #
+  #   $ sudo -u postgres psql -f "/nix/store/<hash-out-path>-synapse-init.sql" --port=5432 -d postgres
+  services.postgresql = {
+    enable = true;
+    initialScript = pkgs.writeText "synapse-init.sql" ''
+      CREATE ROLE "matrix-synapse";
+      CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+        TEMPLATE template0
+        LC_COLLATE = "C"
+        LC_CTYPE = "C";
+      '';
+  };
+
+  services.matrix-synapse = {
+    enable = true;
+    server_name = "matrix-test.melisse.org";
+    listeners = [ {
+      port = 8448;
+      bind_address = "";
+      type = "http";
+      tls = false;
+      x_forwarded = true;
+      resources = [ {
+        names = [ "client" ];
+        compress = false;
+      } ];
+    } ];
+  };
+
   system.stateVersion = "20.09";
 }
