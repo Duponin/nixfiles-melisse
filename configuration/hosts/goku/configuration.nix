@@ -68,6 +68,9 @@
         compress = false;
       } ];
     } ];
+    enable_registration = true;
+    enable_registration_captcha = true;
+    enable_metrics = true;
   };
 
   system.stateVersion = "20.09";
