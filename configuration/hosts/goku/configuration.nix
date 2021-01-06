@@ -69,7 +69,6 @@
       } ];
     } ];
     enable_registration = true;
-    enable_registration_captcha = true;
     enable_metrics = true;
   };
 
