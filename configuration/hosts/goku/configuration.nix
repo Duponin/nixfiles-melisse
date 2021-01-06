@@ -17,7 +17,7 @@
 
   # Set networking
   networking = {
-    firewall = { allowedTCPPorts = [ 22 ]; };
+    firewall = { allowedTCPPorts = [ 22 80 443 ]; };
     hostName = "goku";
     useDHCP = false;
     nameservers = [ "185.233.100.100" "185.233.100.101" "1.1.1.1" ];
