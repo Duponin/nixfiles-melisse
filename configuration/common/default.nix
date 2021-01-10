@@ -17,5 +17,8 @@
       ];
     };
   };
-  security.sudo.wheelNeedsPassword = false;
+  security = {
+    hideProcessInformation = true;
+    sudo.wheelNeedsPassword = false;
+  };
 }
