@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    # Imports
+    ../../common
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.grub = {
     enable = true;
@@ -47,20 +51,7 @@
     useDHCP = false;
   };
 
-  users.users.duponin = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJh6W2o61dlOIcBXeWRhXWSYD/W8FDVf3/p4FNfL2L6p duponin@rilakkuma"
-    ];
-  };
-
   time.timeZone = "Europe/Paris";
-
-  security = {
-    hideProcessInformation = true;
-    sudo.wheelNeedsPassword = false;
-  };
 
   services.openssh.enable = true;
 
