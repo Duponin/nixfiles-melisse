@@ -4,6 +4,7 @@
   imports = [
     # Imports
     ../../common
+    ../../common/hypervisor.nix
     ./hardware-configuration.nix
   ];
 
