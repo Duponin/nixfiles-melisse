@@ -48,6 +48,7 @@ in {
           }];
           routes = [{
             address = "0.0.0.0";
+            options.mtu = 1378;
             prefixLength = 0;
             via = "185.233.102.190";
           }];
@@ -59,6 +60,7 @@ in {
           }];
           routes = [{
             address = "::";
+            options.mtu = 1378;
             prefixLength = 0;
             via = "2a0c:e300:12::190";
           }];
