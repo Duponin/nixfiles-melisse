@@ -28,8 +28,8 @@ in {
 
   networking = {
     bridges = {
-      br-vm-wan = [ vm_pub_int ];
-      br-vm-lan = [ ];
+      br-vm-wan.interfaces = [ vm_pub_int ];
+      br-vm-lan.interfaces = [ ];
     };
     firewall = {
       # allowedTCPPorts = [ 22 ];
