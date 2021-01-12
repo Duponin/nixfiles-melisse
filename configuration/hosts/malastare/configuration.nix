@@ -31,7 +31,7 @@
         }];
       };
     };
-    interfaces.en4.useDHCP = false;
+    interfaces.ens4.useDHCP = false;
   };
 
   services = { openssh.enable = true; };
