@@ -32,7 +32,7 @@ in {
       br-vm-lan.interfaces = [ ];
     };
     firewall = {
-      # allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ 22 ];
       trustedInterfaces = [ vm_pub_int ];
     };
     hostName = "coruscant";
