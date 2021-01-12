@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
-
-{
+let vm_pub_int = "enp39s0"; # VM Public Interface
+in {
   imports = [
     # Imports
     ../../common
