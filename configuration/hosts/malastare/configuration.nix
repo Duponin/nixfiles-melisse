@@ -15,7 +15,7 @@
   # Set networking
   networking = {
     firewall = { allowedTCPPorts = [ 22 ]; };
-    hostName = "melastare";
+    hostName = "malastare";
     useDHCP = false;
     nameservers = [ "185.233.100.100" "185.233.100.101" "1.1.1.1" ];
     interfaces.ens18 = {
