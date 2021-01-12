@@ -40,6 +40,7 @@ in {
       enp36s0f0 = { useDHCP = false; };
       enp36s0f = { useDHCP = false; };
       enp38s0 = {
+        # FIXME MTU is not applied, it has to be done by hand
         mtu = 1378;
         ipv4 = {
           addresses = [{
