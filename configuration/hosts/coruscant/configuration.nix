@@ -26,6 +26,11 @@ in {
     ];
   };
 
+  fileSystems."/var/lib/libvirt/images" = {
+    device = "/dev/disk/by-uuid/66978328-978a-4943-b832-88201482756f";
+    fsType = "ext4";
+  };
+
   networking = {
     bridges = {
       br-vm-wan.interfaces = [ vm_pub_int ];
