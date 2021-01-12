@@ -18,7 +18,7 @@
     hostName = "malastare";
     useDHCP = false;
     nameservers = [ "185.233.100.100" "185.233.100.101" "1.1.1.1" ];
-    interfaces.ens18 = {
+    interfaces.ens3 = {
       ipv4 = {
         addresses = [{
           address = "185.233.102.134";
@@ -31,6 +31,7 @@
         }];
       };
     };
+    interfaces.en4.useDHCP = false;
   };
 
   services = { openssh.enable = true; };
