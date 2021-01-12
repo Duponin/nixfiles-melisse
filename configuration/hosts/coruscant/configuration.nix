@@ -27,7 +27,14 @@
   };
 
   networking = {
-    firewall.allowedTCPPorts = [ 22 ];
+    bridges = {
+      br-vm-wan = [ vm_pub_int ];
+      br-vm-lan = [ ];
+    };
+    firewall = {
+      # allowedTCPPorts = [ 22 ];
+      trustedInterfaces = [ vm_pub_int ];
+    };
     hostName = "coruscant";
     interfaces = {
       enp36s0f0 = { useDHCP = false; };
@@ -66,7 +73,10 @@
 
   time.timeZone = "Europe/Paris";
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+  };
 
   system.stateVersion = "20.09";
 
