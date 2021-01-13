@@ -11,6 +11,7 @@
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.grub.device = "nodev";
+  boot.loader.systemd-boot.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
