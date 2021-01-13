@@ -30,6 +30,17 @@
           via = "185.233.102.190";
         }];
       };
+      ipv6 = {
+        addresses = [{
+          address = "2a0c:e300:12::134";
+          prefixLength = 48;
+        }];
+        routes = [{
+          address = "::";
+          prefixLength = 0;
+          via = "2a0c:e300:12::190";
+        }];
+      };
     };
     interfaces.ens4.useDHCP = false;
   };
