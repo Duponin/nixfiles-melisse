@@ -42,7 +42,14 @@
         }];
       };
     };
-    interfaces.ens4.useDHCP = false;
+    interfaces.ens4.useDHCP = {
+      ipv6 = {
+        addresses = [{
+          address = "2a0c:e304:c0fe::1";
+          prefixLength = 48;
+        }];
+      };
+    };
   };
 
   services = { openssh.enable = true; };
