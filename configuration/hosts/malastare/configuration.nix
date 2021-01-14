@@ -42,7 +42,7 @@
         }];
       };
     };
-    interfaces.ens4.useDHCP = {
+    interfaces.ens4 = {
       ipv6 = {
         addresses = [{
           address = "2a0c:e304:c0fe::1";
