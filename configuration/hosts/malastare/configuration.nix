@@ -48,10 +48,16 @@
     };
     interfaces.ens4 = {
       ipv6 = {
-        addresses = [{
-          address = "2a0c:e304:c0fe::1";
-          prefixLength = 48;
-        }];
+        addresses = [
+          {
+            address = "2a0c:e304:c0fe::1";
+            prefixLength = 48;
+          }
+          {
+            address = "2a0c:e304:c0fe:1::1";
+            prefixLength = 64;
+          }
+        ];
       };
     };
   };
