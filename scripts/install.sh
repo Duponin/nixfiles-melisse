@@ -2,11 +2,11 @@
 
 REPO="https://git.locahlo.st/chatons/nixfiles"
 
-read -p "Device? (/dev/sda): " device; device=${device:-/dev/sda}
-read -p "Hostname? " hostname
+device=${1}
+hostname=${2}
 
-if [ -z "$hostname" ]; then
-  echo "Please give a hostname."
+if [ -z "$hostname" ] || [ -z "$device" ]; then
+  echo "Please give arguments. <device> then <hostname>"
   exit 1
 fi
 
