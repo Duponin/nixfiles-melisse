@@ -22,4 +22,4 @@ nix-env -iA nixos.git
 git clone "${REPO}" /mnt/etc/nixfiles
 nixos-install --no-root-passwd -I nixos-config=/mnt/etc/nixfiles/configuration/hosts/"${hostname}"/configuration.nix
 
-echo "Installation Done! Reboot and enjoy..."
+reboot
