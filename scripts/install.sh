@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 REPO="https://git.locahlo.st/chatons/nixfiles"
 
 device="${1}"
