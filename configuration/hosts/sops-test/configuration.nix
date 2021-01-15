@@ -18,8 +18,8 @@
     hostName = "sops-test";
     useDHCP = false;
     nameservers = [ "2a0c:e300::100" "2a0c:e300::101" ];
-    interfaces.ens3 = {
-      ipv4 = {
+    interfaces.enp1s0 = {
+      ipv6 = {
         addresses = [{
           address = "2a0c:e300:12::42:3";
           prefixLength = 26;
