@@ -13,8 +13,8 @@ if [ -z "$hostname" ] || [ -z "$device" ]; then
 fi
 
 hostname "${hostname}"
-parted "${device}" -- mklabel msdos
-parted "${device}" -- mkpart primary 0% 100%
+parted --script "${device}" -- mklabel msdos
+parted --script "${device}" -- mkpart primary 0% 100%
 mkfs.ext4 "${device}"1 -L nixos
 mount "${device}"1 /mnt
 nixos-generate-config --root /mnt
