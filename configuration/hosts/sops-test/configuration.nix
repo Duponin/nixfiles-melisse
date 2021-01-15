@@ -22,7 +22,7 @@
       ipv6 = {
         addresses = [{
           address = "2a0c:e300:12::42:3";
-          prefixLength = 26;
+          prefixLength = 48;
         }];
         routes = [{
           address = "0.0.0.0";
