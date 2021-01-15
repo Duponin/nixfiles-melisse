@@ -4,22 +4,35 @@ set -e
 
 REPO="https://git.locahlo.st/chatons/nixfiles"
 
-device="${1}"
-hostname="${2}"
+INSTALL_DEVICE="${1}"
+HOSTNAME="${2}"
 
-if [ -z "$hostname" ] || [ -z "$device" ]; then
-  echo "Please give arguments. <device> then <hostname>"
+BOOT_DEVICE="${INSTALL_DEVICE}1"
+ROOT_DEVICE="${INSTALL_DEVICE}2"
+
+if [ -z "$HOSTNAME" ] || [ -z "$INSTALL_DEVICE" ]; then
+  echo "Please give arguments. <INSTALL_DEVICE> then <HOSTNAME>"
   exit 1
 fi
 
-hostname "${hostname}"
-parted --script "${device}" -- mklabel msdos
-parted --script "${device}" -- mkpart primary 0% 100%
-mkfs.ext4 "${device}"1 -L nixos
-mount "${device}"1 /mnt
+hostname "${HOSTNAME}"
+
+parted --script "${INSTALL_DEVICE}" -- mklabel gpt
+parted --script "${INSTALL_DEVICE}" -- mkpart ESP fat32 1MiB 512MiB
+parted --script "${INSTALL_DEVICE}" -- set 1 esp on
+parted --script "${INSTALL_DEVICE}" -- mkpart primary 512MiB 100%FREE
+
+mkfs.fat -F 32 -n boot "${BOOT_DEVICE}"
+mkfs.ext4 "${ROOT_DEVICE}" -L nixos
+
+mount "${INSTALL_DEVICE}"1 /mnt
+mkdir /mnt/boot
+
 nixos-generate-config --root /mnt
+
 nix-env -iA nixos.git
 git clone "${REPO}" /mnt/etc/nixfiles
-nixos-install --no-root-passwd -I nixos-config=/mnt/etc/nixfiles/configuration/hosts/"${hostname}"/configuration.nix
+
+nixos-install --no-root-passwd -I "nixos-config=/mnt/etc/nixfiles/configuration/hosts/${HOSTNAME}/configuration.nix"
 
 reboot
