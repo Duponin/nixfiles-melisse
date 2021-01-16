@@ -18,10 +18,7 @@
 
   # Set networking
   networking = {
-    firewall = {
-      allowedTCPPorts = [ 22 ];
-      checkReversePath = false;
-    };
+    firewall = { checkReversePath = false; };
     hostName = "malastare";
     useDHCP = false;
     nameservers = [ "185.233.100.100" "185.233.100.101" "1.1.1.1" ];
@@ -65,8 +62,6 @@
       };
     };
   };
-
-  services = { openssh.enable = true; };
 
   system.stateVersion = "20.09";
 }
