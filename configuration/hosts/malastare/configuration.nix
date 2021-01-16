@@ -26,6 +26,7 @@
     useDHCP = false;
     nameservers = [ "185.233.100.100" "185.233.100.101" "1.1.1.1" ];
     interfaces.ens3 = {
+      mtu = 1378;
       ipv4 = {
         addresses = [{
           address = "185.233.102.134";
