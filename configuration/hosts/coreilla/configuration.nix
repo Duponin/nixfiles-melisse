@@ -7,8 +7,6 @@
   # Use the GRUB 2 boot loader.
   boot.loader.systemd-boot.enable = true;
 
-  environment.systemPackages = with pkgs; [ borgbackup ];
-
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
