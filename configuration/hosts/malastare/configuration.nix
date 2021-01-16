@@ -18,6 +18,10 @@
 
   # Set networking
   networking = {
+    defaultGateway6 = {
+      address = "2a0c:e300:12::190";
+      interface = "ens3";
+    };
     firewall = { checkReversePath = false; };
     hostName = "malastare";
     useDHCP = false;
@@ -39,11 +43,6 @@
         addresses = [{
           address = "2a0c:e300:12::134";
           prefixLength = 48;
-        }];
-        routes = [{
-          address = "::";
-          prefixLength = 0;
-          via = "2a0c:e300:12::190";
         }];
       };
     };
