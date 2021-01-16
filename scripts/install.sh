@@ -34,6 +34,7 @@ set -e
   git clone "${REPO}" /mnt/etc/nixfiles
 
   # FIXME Workaround because `nixos-install` don't honour `nixos-config` correctly
+  # We could use `NIXOS_CONF` env var, should be a better workaround than below
   mkdir /mnt/etc/nixos
   touch /mnt/etc/nixos/configuration.nix
 
