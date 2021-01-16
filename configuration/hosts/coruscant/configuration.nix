@@ -68,7 +68,13 @@ in {
       enp39s0 = { useDHCP = false; };
       enp42s0f3u5u3c2.useDHCP = false;
     };
-    nameservers = [ "185.233.100.100" "185.233.100.101" "1.1.1.1" ];
+    nameservers = [
+      "185.233.100.100"
+      "185.233.100.101"
+      "1.1.1.1"
+      "2a0c:e300::100"
+      "2a0c:e300::101"
+    ];
     useDHCP = false;
   };
 
