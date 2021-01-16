@@ -27,6 +27,7 @@
       bantime-increment.enable = true;
     };
     openssh = {
+      enable = true;
       challengeResponseAuthentication = false;
       openFirewall = true;
       passwordAuthentication = false;
