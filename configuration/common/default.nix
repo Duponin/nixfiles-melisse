@@ -29,7 +29,6 @@
     openssh = {
       enable = true;
       challengeResponseAuthentication = false;
-      openFirewall = true;
       passwordAuthentication = false;
       permitRootLogin = "no";
     };
