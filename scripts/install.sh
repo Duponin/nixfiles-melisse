@@ -33,6 +33,10 @@ set -e
   nix-env -iA nixos.git
   git clone "${REPO}" /mnt/etc/nixfiles
 
+  # FIXME Workaround because `nixos-install` don't honour `nixos-config` correctly
+  mkdir /mnt/etc/nixos
+  touch /mnt/etc/nixos/configuration.nix
+
   nixos-install --no-root-passwd -I "nixos-config=/mnt/etc/nixfiles/configuration/hosts/${HOSTNAME}/configuration.nix"
 
   reboot
