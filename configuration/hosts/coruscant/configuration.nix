@@ -57,11 +57,6 @@ in {
             address = "185.233.102.133";
             prefixLength = 26;
           }];
-          routes = [{
-            address = "0.0.0.0";
-            prefixLength = 0;
-            via = "185.233.102.190";
-          }];
         };
         ipv6 = {
           addresses = [{
