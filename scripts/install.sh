@@ -25,10 +25,9 @@ parted --script "${INSTALL_DEVICE}" -- mkpart primary 512MiB 100%FREE
 mkfs.fat -F 32 -n boot "${BOOT_DEVICE}"
 mkfs.ext4 "${ROOT_DEVICE}" -L nixos
 
-mount "${INSTALL_DEVICE}"1 /mnt
+mount "${ROOT_DEVICE}" /mnt
 mkdir /mnt/boot
-
-nixos-generate-config --root /mnt
+mount "${BOOT_DEVICE}" /mnt/boot
 
 nix-env -iA nixos.git
 git clone "${REPO}" /mnt/etc/nixfiles
