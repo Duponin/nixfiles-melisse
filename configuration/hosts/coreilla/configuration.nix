@@ -21,13 +21,13 @@
         mtu = 1500;
         ipv6 = {
           addresses = [{
-            address = "2a0c:e304:c0fe::1:2";
+            address = "2a0c:e304:c0fe:1::2";
             prefixLength = 48;
           }];
           routes = [{
             address = "::";
             prefixLength = 0;
-            via = "2a0c:e304:c0fe::1:1";
+            via = "2a0c:e304:c0fe:1::1";
           }];
         };
       };
