@@ -12,6 +12,10 @@
 
   # Set networking
   networking = {
+    defaultGateway6 = {
+      address = "2a0c:e304:c0fe:1::1";
+      interface = "ens3";
+    };
     firewall = { allowedTCPPorts = [ 22 ]; };
     hostName = "coreilla";
     useDHCP = false;
@@ -23,11 +27,6 @@
           addresses = [{
             address = "2a0c:e304:c0fe:1::2";
             prefixLength = 48;
-          }];
-          routes = [{
-            address = "::";
-            prefixLength = 0;
-            via = "2a0c:e304:c0fe:1::1";
           }];
         };
       };
