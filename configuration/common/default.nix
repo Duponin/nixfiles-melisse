@@ -21,8 +21,16 @@
     hideProcessInformation = true;
     sudo.wheelNeedsPassword = false;
   };
-  services.fail2ban = {
-    enable = true;
-    bantime-increment.enable = true;
+  services = {
+    fail2ban = {
+      enable = true;
+      bantime-increment.enable = true;
+    };
+    openssh = {
+      challengeResponseAuthentication = false;
+      openFirewall = true;
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+    };
   };
 }
