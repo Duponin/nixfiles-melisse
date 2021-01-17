@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   imports = [ # imports
+    ../../common
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
   ];
