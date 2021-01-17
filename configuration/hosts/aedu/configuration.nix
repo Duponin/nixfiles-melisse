@@ -1,11 +1,9 @@
 { config, pkgs, ... }: {
-  imports = [ # Include the results of the hardware scan.
+  imports = [ # imports
     ../../common
-    ./hardware-configuration.nix
+    ../../common/qemu-guest
+    ../../common/qemu-guest/uefi.nix
   ];
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.systemd-boot.enable = true;
 
   environment.systemPackages = with pkgs; [ borgbackup ];
 
