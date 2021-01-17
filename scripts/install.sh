@@ -3,7 +3,7 @@
 set -e
 
 (
-  REPO="https://git.locahlo.st/chatons/nixfiles"
+  REPO="https://git.locahlo.st/chatons/nixfiles.git"
 
   INSTALL_DEVICE="${1}"
   HOSTNAME="${2}"
