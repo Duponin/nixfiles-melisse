@@ -1,11 +1,9 @@
 { config, pkgs, ... }: {
   imports = [ # Include the results of the hardware scan.
     ../../common
-    ./hardware-configuration.nix
+    ../../common/qemu-guest
+    ../../common/qemu-guest/uefi.nix
   ];
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.systemd-boot.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
