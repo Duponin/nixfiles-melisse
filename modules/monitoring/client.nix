@@ -30,6 +30,11 @@ in {
       virtualHosts."${cfg.host + "." + cfg.domain}" = {
         enableACME = true;
         forceSSL = true;
+        locations."/.well-known" = {
+          extraConfig = ''
+            proxy_ssl_server_name on;
+          '';
+        };
         locations."/" = {
           proxyPass = "http://localhost:19999";
           extraConfig = ''
