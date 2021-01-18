@@ -19,6 +19,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
     services.netdata.enable = true;
     services.nginx = {
       enable = true;
