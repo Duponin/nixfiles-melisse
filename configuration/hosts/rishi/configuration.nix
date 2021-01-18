@@ -1,5 +1,8 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let hostname = "rishi";
+in {
   imports = [ # imports
+    ../../../modules/monitoring/client.nix
     ../../common
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
@@ -7,6 +10,9 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
+
+  monitoring.client.enable = true;
+  monitoring.client.host = hostname;
 
   networking = {
     defaultGateway6 = {
