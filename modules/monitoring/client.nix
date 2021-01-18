@@ -13,7 +13,7 @@ in {
       default = "melisse.org";
     };
     allowedIPs = mkOption {
-      type = types.list;
+      type = types.listOf types.str;
       default = [ "2a0c:e304:c0fe::/48" "::1" ];
     };
   };
