@@ -5,7 +5,7 @@ let
 in {
   imports = [
     # Imports
-    ../../../modules/monitoring/cliient.nix
+    ../../../modules/monitoring/client.nix
     ../../common
     ../../common/hypervisor.nix
     ./hardware-configuration.nix
