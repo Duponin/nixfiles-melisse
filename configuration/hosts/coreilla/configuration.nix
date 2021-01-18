@@ -1,5 +1,8 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let hostname = "coreilla";
+in {
   imports = [ # Include the results of the hardware scan.
+    ../../../modules/monitoring/client.nix
     ../../common
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
@@ -7,6 +10,9 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
+
+  monitoring.client.enable = true;
+  monitoring.client.host = hostname;
 
   # Set networking
   networking = {
