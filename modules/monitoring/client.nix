@@ -39,11 +39,9 @@ in {
           proxyPass = "http://localhost:19999";
           extraConfig = ''
             proxy_ssl_server_name on;
-            allow ${
-              concatMapStrings (x: ''
-                allow ${x};
-              '') cfg.allowedIPs
-            }
+            ${concatMapStrings (x: ''
+              allow ${x};
+            '') cfg.allowedIPs}
             deny all;
           '';
         };
