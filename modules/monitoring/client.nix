@@ -40,7 +40,7 @@ in {
           extraConfig = ''
             proxy_ssl_server_name on;
             allow ${cfg.allowedIPs};
-            allow ::1
+            allow ::1;
             deny all;
           '';
         };
