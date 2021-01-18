@@ -13,8 +13,8 @@ in {
       default = "melisse.org";
     };
     allowedIPs = mkOption {
-      type = types.str;
-      default = "2a0c:e304:c0fe::/48";
+      type = types.list;
+      default = [ "2a0c:e304:c0fe::/48" "::1" ];
     };
   };
 
@@ -39,8 +39,11 @@ in {
           proxyPass = "http://localhost:19999";
           extraConfig = ''
             proxy_ssl_server_name on;
-            allow ${cfg.allowedIPs};
-            allow ::1;
+            allow ${
+              concatMapStrings (x: ''
+                allow ${x} ;
+              '') cfg.allowedIPs
+            };
             deny all;
           '';
         };
