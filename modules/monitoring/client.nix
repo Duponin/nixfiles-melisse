@@ -41,9 +41,9 @@ in {
             proxy_ssl_server_name on;
             allow ${
               concatMapStrings (x: ''
-                allow ${x} ;
+                allow ${x};
               '') cfg.allowedIPs
-            };
+            }
             deny all;
           '';
         };
