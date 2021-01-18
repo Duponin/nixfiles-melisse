@@ -19,7 +19,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    fqdn = cfg.host + "." + cfg.domain;
     services.netdata.enable = true;
     services.nginx = {
       enable = true;
@@ -27,7 +26,7 @@ in {
       recommendedOptimisation = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
-      virtualHosts."${fqdn}" = {
+      virtualHosts."${cfg.host + "." + cfg.domain}" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
