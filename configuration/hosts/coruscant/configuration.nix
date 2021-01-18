@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
-let vm_pub_int = "enp39s0"; # VM Public Interface
+let
+  vm_pub_int = "enp39s0"; # VM Public Interface
+  hostname = "coruscant";
 in {
   imports = [
     # Imports
+    ../../../modules/monitoring/cliient.nix
     ../../common
     ../../common/hypervisor.nix
     ./hardware-configuration.nix
@@ -30,6 +33,9 @@ in {
     device = "/dev/disk/by-uuid/66978328-978a-4943-b832-88201482756f";
     fsType = "ext4";
   };
+
+  monitoring.client.enable = true;
+  monitoring.client.host = hostname;
 
   networking = {
     defaultGateway = {
