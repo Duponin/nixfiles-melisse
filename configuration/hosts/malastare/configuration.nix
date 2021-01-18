@@ -53,7 +53,7 @@ in {
         addresses = [
           {
             address = "2a0c:e304:c0fe::1";
-            prefixLength = 48;
+            prefixLength = 64;
           }
           {
             address = "2a0c:e304:c0fe:1::1";
