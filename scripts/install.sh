@@ -33,6 +33,11 @@ set -e
   nix-env -iA nixos.git
   git clone "${REPO}" /mnt/etc/nixfiles
 
+  # Install system from another git branch
+  if [ $INSTALL_BRANCH ]; then
+    git -C /mnt/etc/nixfiles switch "${INSTALL_BRANCH}"
+  fi
+
   # FIXME Workaround because `nixos-install` don't honour `nixos-config` correctly
   # We could use `NIXOS_CONF` env var, should be a better workaround than below
   mkdir /mnt/etc/nixos
