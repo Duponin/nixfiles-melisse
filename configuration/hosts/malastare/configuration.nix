@@ -46,11 +46,6 @@ in {
           address = "2a0c:e300:12::134";
           prefixLength = 48;
         }];
-        routes = [{
-          address = "2a0c:e304:c0fe::";
-          prefixLength = 48;
-          via = "2a0c:e300:12::134";
-        }];
       };
     };
     interfaces.ens4 = {
