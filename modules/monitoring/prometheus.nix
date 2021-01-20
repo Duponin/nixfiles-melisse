@@ -8,15 +8,12 @@
         static_configs = [
           {
             targets = [
-              "aedu.melisse.org"
-              "coreilla.melisse.org"
-              "coruscant.melisse.org"
-              "malastare.melisse.org"
-              "rishi.melisse.org"
+              "aedu.melisse.org:443"
+              "coreilla.melisse.org:443"
+              "coruscant.melisse.org:443"
+              "malastare.melisse.org:443"
+              "rishi.melisse.org:443"
             ];
-            labels = {
-              alias = "melisse.org";
-            };
           }
         ];
         params.format = [ "prometheus" ];
