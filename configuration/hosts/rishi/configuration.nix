@@ -2,6 +2,7 @@
 let hostname = "rishi";
 in {
   imports = [ # imports
+    ../../../modules/monitoring/prometheus.nix
     ../../../modules/monitoring/client.nix
     ../../common
     ../../common/qemu-guest
