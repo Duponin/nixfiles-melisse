@@ -62,6 +62,36 @@ in {
         ];
       };
     };
+    interfaces.ens10 = {
+      ipv4 = {
+        addresses = [{
+          address = "10.1.0.1";
+          prefixLength = 16;
+        }];
+      };
+    };
+  };
+
+  networking.nat = {
+    enable = true;
+    internalIPs = [ "10.1.0.0/16" ];
+    internalInterfaces = [ "ens5" ];
+    externalIP = "185.233.102.134";
+    externalInterface = "ens3";
+  };
+  services.dhcpd4 = {
+    enable = true;
+    interfaces = [ "ens10" ];
+    extraConfig = ''
+      option subnet-mask 255.255.0.0;
+      option broadcast-address 10.1.255.255;
+      option routers 10.1.0.1;
+      option domain-name-servers 185.233.100.100 185.233.100.101;
+      option domain-name "melisse.org";
+      subnet 10.1.0.0 netmask 255.255.0.0 {
+        range 10.1.0.10 10.1.1.250;
+      }
+    '';
   };
 
   system.stateVersion = "20.09";
