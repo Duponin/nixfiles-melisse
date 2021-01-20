@@ -33,6 +33,7 @@ in {
           }];
         };
       };
+      ens9.useDHCP = true; # NAT network to have IPv4
     };
   };
 
