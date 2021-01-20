@@ -49,6 +49,7 @@ in {
     bridges = {
       br-vm-wan.interfaces = [ vm_pub_int ];
       br-vm-lan.interfaces = [ ];
+      br-vm-nat.interfaces = [ ];
     };
     firewall.trustedInterfaces = [ vm_pub_int ];
     hostName = "coruscant";
