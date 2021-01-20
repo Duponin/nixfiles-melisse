@@ -19,17 +19,17 @@ in {
   # Set networking
   networking = {
     defaultGateway6 = {
-      address = "2a0c:e300:12::190";
+      address = "2a0c:e304:c0fe:1::1";
       interface = "ens3";
     };
     hostName = "aedu";
     useDHCP = false;
     nameservers = [ "2a0c:e300::100" "2a0c:e300::101" ];
     interfaces.ens3 = {
-      mtu = 1378;
+      mtu = 1500;
       ipv6 = {
         addresses = [{
-          address = "2a0c:e300:12::42:2";
+          address = "2a0c:e304:c0fe:1::4";
           prefixLength = 48;
         }];
       };
