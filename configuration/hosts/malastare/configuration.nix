@@ -72,6 +72,7 @@ in {
     };
   };
 
+  networking.firewall.interfaces.ens10.allowedUDPPorts = [ 67 ];
   networking.nat = {
     enable = true;
     internalIPs = [ "10.1.0.0/16" ];
@@ -86,7 +87,7 @@ in {
       option subnet-mask 255.255.0.0;
       option broadcast-address 10.1.255.255;
       option routers 10.1.0.1;
-      option domain-name-servers 185.233.100.100 185.233.100.101;
+      option domain-name-servers 185.233.100.100;
       option domain-name "melisse.org";
       subnet 10.1.0.0 netmask 255.255.0.0 {
         range 10.1.0.10 10.1.1.250;
