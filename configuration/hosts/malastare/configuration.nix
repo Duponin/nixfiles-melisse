@@ -83,6 +83,12 @@ in {
     environment = { BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key"; };
     compression = "auto,lzma";
     startAt = "daily";
+    prune.keep = {
+      within = "1d"; # Keep all archives from the last day
+      daily = 7;
+      weekly = 4;
+      monthly = -1; # Keep at least one archive for each month
+    };
   };
 
   networking.firewall.interfaces.ens10.allowedUDPPorts = [ 67 ];
