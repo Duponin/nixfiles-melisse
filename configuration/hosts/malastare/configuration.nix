@@ -78,7 +78,7 @@ in {
     repo = "borg@aedu.melisse.org:/var/lib/backup/melisse/malastare";
     encryption = {
       mode = "repokey-blake2";
-      passCommand = "/root/backup.key";
+      passCommand = "cat /root/backup.key";
     };
     environment = { BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key"; };
     compression = "auto,lzma";
