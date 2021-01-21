@@ -72,6 +72,19 @@ in {
     };
   };
 
+  services.borgbackup.jobs.aedu = {
+    paths = [ "/var/log" ];
+    doInit = true;
+    repo = "borg@aedu.melisse.org:/var/lib/backup/melisse/malastare";
+    encryption = {
+      mode = "repokey-blake2";
+      passCommand = "/root/backup.key";
+    };
+    BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key";
+    compression = "auto,lzma";
+    startAt = "daily";
+  };
+
   networking.firewall.interfaces.ens10.allowedUDPPorts = [ 67 ];
   networking.nat = {
     enable = true;
