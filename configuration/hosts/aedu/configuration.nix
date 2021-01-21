@@ -36,5 +36,14 @@ in {
     };
   };
 
+  services.borgbackup.repos = {
+    melisse_malastare = {
+      authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE95SUeLCzTzcHUK7VPDEgXEFdpgHlr3efgTdDSU3m0f root@malastare"
+      ];
+      path = "/var/lib/backup/melisse/malastare";
+    };
+  };
+
   system.stateVersion = "20.09";
 }
