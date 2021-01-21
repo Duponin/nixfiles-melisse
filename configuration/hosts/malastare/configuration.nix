@@ -75,7 +75,7 @@ in {
   services.borgbackup.jobs.aedu = {
     paths = [ "/var/log" ];
     doInit = true;
-    repo = "borg@aedu.melisse.org:/var/lib/backup/melisse/malastare";
+    repo = "borg@aedu.melisse.org:/var/lib/backups/melisse/malastare";
     encryption = {
       mode = "repokey-blake2";
       passCommand = "cat /root/backup.key";
