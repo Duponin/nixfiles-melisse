@@ -1,12 +1,19 @@
 { config, pkgs, ... }:
-let hostname = "coreilla";
+let
+  hostname = "coreilla";
+  nixpkgs-unstable = fetchTarball
+    "https://github.com/nixos/nixpkgs/archive/f217c0ea7c148ddc0103347051555c7c252dcafb.tar.gz";
 in {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    (nixpkgs-unstable + "/nixos/modules/services/databases/openldap.nix")
     ../../../modules/monitoring/client.nix
     ../../common
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
   ];
+
+  # Cf. above, we use openldap service from unstable
+  disabledModules = [ "services/databases/openldap.nix" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -34,6 +41,54 @@ in {
         };
       };
       ens9.useDHCP = true; # NAT network to have IPv4
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 389 ];
+  services.openldap = {
+    enable = true;
+    settings = {
+      attrs.olcLogLevel = [ "stats" ];
+      children = {
+        "cn=schema" = {
+          includes = [
+            "${pkgs.openldap}/etc/schema/core.ldif"
+            "${pkgs.openldap}/etc/schema/cosine.ldif"
+            "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
+          ];
+        };
+        "olcDatabase={-1}frontend" = {
+          attrs = {
+            objectClass = "olcDatabaseConfig";
+            olcDatabase = "{-1}frontend";
+            olcAccess = [
+              "{0}to * by dn.exact=uidNumber=0+gidNumber=0,cn=peercred,cn=external,cn=auth manage stop by * none stop"
+            ];
+          };
+        };
+        "olcDatabase={0}config" = {
+          attrs = {
+            objectClass = "olcDatabaseConfig";
+            olcDatabase = "{0}config";
+            olcAccess = [ "{0}to * by * none break" ];
+          };
+        };
+        "olcDatabase={1}mdb" = {
+          attrs = {
+            objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+            olcDatabase = "{1}mdb";
+            olcDbDirectory = "/var/db/ldap";
+            olcDbIndex = [
+              "objectClass eq"
+              "cn pres,eq"
+              "uid pres,eq"
+              "sn pres,eq,subany"
+            ];
+            olcSuffix = "dc=melisse,dc=org";
+            olcAccess = [ "{0}to * by * read break" ];
+          };
+        };
+      };
     };
   };
 
