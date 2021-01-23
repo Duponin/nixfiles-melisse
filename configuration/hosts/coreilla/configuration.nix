@@ -44,11 +44,37 @@ in {
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 389 ];
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = true;
+    virtualHosts."ldap.melisse.org" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/.well-known" = {
+        extraConfig = ''
+          proxy_ssl_server_name on;
+        '';
+      };
+      locations."/" = {
+        extraConfig = ''
+          proxy_ssl_server_name on;
+          deny all;
+        '';
+      };
+    };
+  };
+  networking.firewall.allowedTCPPorts = [ 636 ];
   services.openldap = {
     enable = true;
+    urlList = [ "ldaps:///" ];
     settings = {
-      attrs.olcLogLevel = [ "stats" ];
+      attrs = {
+        olcLogLevel = [ "stats" ];
+        olcTLSCACertificateFile =
+          "/var/lib/acme/ldap.melisse.org/fullchain.pem";
+        olcTLSCertificateFile = "/var/lib/acme/ldap.melisse.org/cert.pem";
+        olcTLSCertificateKeyFile = "/var/lib/acme/ldap.melisse.org/key.pem";
+      };
       children = {
         "cn=schema" = {
           includes = [
@@ -84,6 +110,7 @@ in {
               "uid pres,eq"
               "sn pres,eq,subany"
             ];
+            olcRootDN = "cn=admin,dc=melisse,dc=org";
             olcSuffix = "dc=melisse,dc=org";
             olcAccess = [ "{0}to * by * read break" ];
           };
