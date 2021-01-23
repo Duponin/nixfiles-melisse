@@ -67,6 +67,7 @@ in {
   services.openldap = {
     enable = true;
     urlList = [ "ldaps:///" ];
+    group = "nginx"; # FIXME workaround to access to Let's Encrypt certificates
     settings = {
       attrs = {
         olcLogLevel = [ "stats" ];
