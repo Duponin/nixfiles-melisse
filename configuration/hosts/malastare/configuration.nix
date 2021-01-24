@@ -91,6 +91,7 @@ in {
     };
   };
 
+  # DHCPv4
   networking.firewall.interfaces.ens10.allowedUDPPorts = [ 67 ];
   networking.nat = {
     enable = true;
@@ -111,6 +112,32 @@ in {
       subnet 10.1.0.0 netmask 255.255.0.0 {
         range 10.1.0.10 10.1.1.250;
       }
+    '';
+  };
+
+  # DHCPv6
+  networking.firewall.interfaces.ens4.allowedUDPPorts = [ 547 ];
+  systemd.services.dhcpd6.serviceConfig.AmbientCapabilities = [ "CAP_NET_RAW" ];
+  services.dhcpd6 = {
+    enable = true;
+    interfaces = [ "ens4" ];
+    extraConfig = ''
+      option dhcp6.name-servers 2a0c:e300::100;
+      subnet6 2a0c:e304:c0fe:1::/64 {
+        range6 2a0c:e304:c0fe:1::D:1 2a0c:e304:c0fe:1::D:FFFF;
+      }
+    '';
+  };
+  services.radvd = {
+    enable = true;
+    config = ''
+      interface ens4 {
+        AdvSendAdvert on;
+        AdvManagedFlag on;
+        prefix 2a0c:e304:c0fe:1::/64 {
+          AdvRouterAddr on;
+        };
+      };
     '';
   };
 
