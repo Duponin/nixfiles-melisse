@@ -46,6 +46,9 @@ in {
 
   services.nginx = {
     enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."ldap.melisse.org" = {
       enableACME = true;
@@ -59,6 +62,23 @@ in {
         extraConfig = ''
           proxy_ssl_server_name on;
           deny all;
+        '';
+      };
+    };
+    virtualHosts."dolibarr.melisse.org" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        extraConfig = ''
+          proxy_ssl_server_name on;
+          try_files $fastcgi_script_name =404;
+          include fastcgi_params;
+          fastcgi_pass unix:/var/run/phpfpm/dolibarr.socket;
+          fastcgi_index index.php;
+          fastcgi_buffers 8 16k;
+          fastcgi_buffer_size 32k;
+          fastcgi_param DOCUMENT_ROOT $realpath_root;
+          fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         '';
       };
     };
@@ -145,21 +165,6 @@ in {
       "pm.max_requests" = 500;
     };
   };
-  services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    virtualHosts."dolibarr.melisse.org" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/" = {
-        extraConfig = ''
-          proxy_ssl_server_name on;
-        '';
-      };
-    };
-  };
+
   system.stateVersion = "20.09";
 }
