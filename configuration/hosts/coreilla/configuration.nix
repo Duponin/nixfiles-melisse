@@ -82,7 +82,7 @@ in {
             "${pkgs.openldap}/etc/schema/core.ldif"
             "${pkgs.openldap}/etc/schema/cosine.ldif"
             "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
-            "${pkgs.openldap}/etc/schema/dynlist.ldif"
+            "${pkgs.openldap}/etc/schema/dyngroup.ldif"
           ];
         };
         "olcDatabase={-1}frontend" = {
