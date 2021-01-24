@@ -121,5 +121,28 @@ in {
     };
   };
 
+  # Dolibarr
+  services.postgresql = {
+    enable = true;
+    authentication = "trust";
+    ensureDatabases = [ "dolibarr" ];
+    ensureUsers = [{
+      name = "dolibarr";
+      ensurePermissions = { "DATABASE dolibarr" = "ALL PRIVILEGES"; };
+    }];
+  };
+  services.phpfpm.pools.dolibarr = {
+    user = "dolibarr";
+    group = "dolibarr";
+    phpPackage = pkgs.php;
+    settings = {
+      "pm" = "dynamic";
+      "pm.max_children" = 75;
+      "pm.start_servers" = 10;
+      "pm.min_spare_servers" = 5;
+      "pm.max_spare_servers" = 20;
+      "pm.max_requests" = 500;
+    };
+  };
   system.stateVersion = "20.09";
 }
