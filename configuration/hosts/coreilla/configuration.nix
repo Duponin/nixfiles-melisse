@@ -135,6 +135,7 @@ in {
     user = "dolibarr";
     group = "dolibarr";
     phpPackage = pkgs.php;
+    listen = "/var/run/phpfpm/dolibarr.socket";
     settings = {
       "pm" = "dynamic";
       "pm.max_children" = 75;
@@ -142,6 +143,22 @@ in {
       "pm.min_spare_servers" = 5;
       "pm.max_spare_servers" = 20;
       "pm.max_requests" = 500;
+    };
+  };
+  services.nginx = {
+    enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    virtualHosts."dolibarr.melisse.org" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        extraConfig = ''
+          proxy_ssl_server_name on;
+        '';
+      };
     };
   };
   system.stateVersion = "20.09";
