@@ -66,19 +66,16 @@ in {
       };
     };
     virtualHosts."dolibarr.melisse.org" = {
+      root = "/var/www/dolibarr.melisse.org";
       enableACME = true;
       forceSSL = true;
       locations."/" = {
         extraConfig = ''
-          proxy_ssl_server_name on;
-          try_files $fastcgi_script_name =404;
-          include fastcgi_params;
-          fastcgi_pass unix:/var/run/phpfpm/dolibarr.socket;
+          fastcgi_split_path_info ^(.+\.php)(/.+)$;
+          fastcgi_pass unix:${config.services.phpfpm.pools.dolibarr.socket};
           fastcgi_index index.php;
-          fastcgi_buffers 8 16k;
-          fastcgi_buffer_size 32k;
-          fastcgi_param DOCUMENT_ROOT $realpath_root;
-          fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+          include ${pkgs.nginx}/conf/fastcgi_params;
+          include ${pkgs.nginx}/conf/fastcgi.conf;
         '';
       };
     };
@@ -144,7 +141,10 @@ in {
   # Dolibarr
   services.postgresql = {
     enable = true;
-    authentication = "trust";
+    authentication = ''
+      host all all 127.0.0.1/32 trust
+      host all all ::1/128 trust
+    '';
     ensureDatabases = [ "dolibarr" ];
     ensureUsers = [{
       name = "dolibarr";
@@ -155,16 +155,27 @@ in {
     user = "dolibarr";
     group = "dolibarr";
     phpPackage = pkgs.php;
-    listen = "/var/run/phpfpm/dolibarr.socket";
     settings = {
+      "listen.owner" = config.services.nginx.user;
       "pm" = "dynamic";
-      "pm.max_children" = 75;
-      "pm.start_servers" = 10;
-      "pm.min_spare_servers" = 5;
-      "pm.max_spare_servers" = 20;
+      "pm.max_children" = 32;
       "pm.max_requests" = 500;
+      "pm.start_servers" = 2;
+      "pm.min_spare_servers" = 2;
+      "pm.max_spare_servers" = 5;
+      "php_admin_value[error_log]" = "stderr";
+      "php_admin_flag[log_errors]" = true;
+      "catch_workers_output" = true;
     };
   };
+  users.users."dolibarr" = {
+    isSystemUser = true;
+    createHome = true;
+    home = "/var/www/dolibarr.melisse.org";
+    group  = "dolibarr";
+  };
+  users.groups."dolibarr" = {};
 
   system.stateVersion = "20.09";
 }
+
