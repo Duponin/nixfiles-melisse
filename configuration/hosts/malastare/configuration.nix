@@ -113,6 +113,11 @@ in {
         range 10.1.0.10 10.1.1.250;
       }
     '';
+    machines = [{
+      ethernetAddress = "52:54:00:d2:de:3d";
+      hostName = "sullust";
+      ipAddress = "10.1.0.2";
+    }];
   };
 
   # DHCPv6
