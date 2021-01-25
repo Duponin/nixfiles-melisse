@@ -2,6 +2,7 @@
 let hostname = "malastare";
 in {
   imports = [ # imports
+    ../../../modules/backup/client.nix
     ../../../modules/monitoring/client.nix
     ../../common
     ../../common/qemu-guest
@@ -72,24 +73,9 @@ in {
     };
   };
 
-  services.borgbackup.jobs.aedu = {
-    paths = [ "/var/log" ];
-    doInit = true;
-    repo = "borg@aedu.melisse.org:/var/lib/backups/melisse/malastare";
-    encryption = {
-      mode = "repokey-blake2";
-      passCommand = "cat /root/backup.key";
-    };
-    environment = { BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key"; };
-    compression = "auto,lzma";
-    startAt = "daily";
-    prune.keep = {
-      within = "1d"; # Keep all archives from the last day
-      daily = 7;
-      weekly = 4;
-      monthly = -1; # Keep at least one archive for each month
-    };
-  };
+  backup.client.enable = true;
+  backup.client.host = hostname;
+  backup.client.paths = [ "/var/log" ];
 
   # DHCPv4
   networking.firewall.interfaces.ens10.allowedUDPPorts = [ 67 ];
