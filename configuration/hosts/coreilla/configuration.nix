@@ -66,10 +66,14 @@ in {
       };
     };
     virtualHosts."dolibarr.melisse.org" = {
-      root = "/var/www/dolibarr.melisse.org";
+      root = "/var/www/dolibarr.melisse.org/htdocs";
       enableACME = true;
       forceSSL = true;
       locations."/" = {
+        index = "index.php";
+        tryFiles = "$uri $uri/ /index.php?$query_string";
+      };
+      locations."~ .php$" = {
         extraConfig = ''
           fastcgi_split_path_info ^(.+\.php)(/.+)$;
           fastcgi_pass unix:${config.services.phpfpm.pools.dolibarr.socket};
@@ -150,6 +154,9 @@ in {
       name = "dolibarr";
       ensurePermissions = { "DATABASE dolibarr" = "ALL PRIVILEGES"; };
     }];
+    # FIXME: user dolibarr has to be dolibarr database's owner
+    # sudo -u postgres psql
+    # ALTER DATABASE dolibarr owner to dolibarr;
   };
   services.phpfpm.pools.dolibarr = {
     user = "dolibarr";
@@ -172,9 +179,9 @@ in {
     isSystemUser = true;
     createHome = true;
     home = "/var/www/dolibarr.melisse.org";
-    group  = "dolibarr";
+    group = "dolibarr";
   };
-  users.groups."dolibarr" = {};
+  users.groups."dolibarr" = { };
 
   system.stateVersion = "20.09";
 }
