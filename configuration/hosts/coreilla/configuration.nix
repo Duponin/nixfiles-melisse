@@ -134,6 +134,7 @@ in {
               "sn pres,eq,subany"
             ];
             olcRootDN = "cn=admin,dc=melisse,dc=org";
+            olcRootPW.path = "/run/secrets/ldap_admin";
             olcSuffix = "dc=melisse,dc=org";
             olcAccess = [ "{0}to * by * read break" ];
           };
@@ -141,6 +142,7 @@ in {
       };
     };
   };
+  age.secrets.ldap_admin.file = ../../../secrets/ldap_admin.age;
 
   # Dolibarr
   services.postgresql = {
