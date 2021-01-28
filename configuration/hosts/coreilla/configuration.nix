@@ -65,9 +65,8 @@ in {
         '';
       };
     };
-    virtualHosts."dolibarr.melisse.org" = {
+    virtualHosts."dolibarr.priv.melisse.org" = {
       root = "/var/www/dolibarr.melisse.org/htdocs";
-      enableACME = true;
       forceSSL = true;
       locations."/" = {
         index = "index.php";
@@ -80,6 +79,8 @@ in {
           fastcgi_index index.php;
           include ${pkgs.nginx}/conf/fastcgi_params;
           include ${pkgs.nginx}/conf/fastcgi.conf;
+          allow 2a0c:e304:c0fe:1::/64;
+          deny all;
         '';
       };
     };
