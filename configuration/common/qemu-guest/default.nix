@@ -3,10 +3,7 @@
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    "${
-      builtins.fetchTarball
-      "https://codeload.github.com/ryantm/agenix/tar.gz/master"
-    }/modules/age.nix"
+    "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/master.tar.gz"}/modules/age.nix"
   ];
 
   boot.initrd.availableKernelModules =
