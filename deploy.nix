@@ -7,6 +7,7 @@ let
   }) { };
 in {
   network = {
+    inherit pkgs;
     description = "Mélisse hosts";
     ordering = { tags = [ "prod" ]; };
   };
