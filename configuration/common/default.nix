@@ -43,5 +43,5 @@ in {
       permitRootLogin = "no";
     };
   };
-  nix.trustedUsers = [ "@wheel" ]
+  nix.trustedUsers = [ "@wheel" ];
 }
