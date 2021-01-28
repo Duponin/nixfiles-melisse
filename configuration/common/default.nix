@@ -23,7 +23,9 @@ in {
       deploy = { # User dedicated for deployements, Cf. anoat
         isNormalUser = true;
         extraGroups = admin_groups;
-        openssh.authorizedKeys.keys = [ "" ];
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWnwK4mp+j3Y+lPzfEfEYasOeYJH8Vp/7V4tjteSU4j deploy@anoat.melisse.org"
+        ];
       };
     };
   };
