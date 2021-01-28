@@ -44,7 +44,6 @@ in {
     };
   };
 
-  security.acme.acceptTerms = true;
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
