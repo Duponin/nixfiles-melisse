@@ -1,9 +1,8 @@
 let
   # Pin the deployment package-set to a specific version of nixpkgs
   pkgs = import (builtins.fetchTarball {
-    url =
-      "https://github.com/NixOS/nixpkgs-channels/archive/51d115ac89d676345b05a0694b23bd2691bf708a.tar.gz";
-    sha256 = "1gfjaa25nq4vprs13h30wasjxh79i67jj28v54lkj4ilqjhgh2rs";
+    url = "https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz";
+    sha256 = "a26a85bd98253f560c55ec48be1c793c39f471a6fb9842f9af07a701e854f9bf";
   }) { };
 in {
   network = {
