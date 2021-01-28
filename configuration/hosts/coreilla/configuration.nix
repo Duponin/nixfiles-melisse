@@ -67,7 +67,6 @@ in {
     };
     virtualHosts."dolibarr.priv.melisse.org" = {
       root = "/var/www/dolibarr.melisse.org/htdocs";
-      forceSSL = true;
       locations."/" = {
         index = "index.php";
         tryFiles = "$uri $uri/ /index.php?$query_string";
