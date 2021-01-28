@@ -20,6 +20,11 @@ in {
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOiFv7rm8ChxvFaggUHRWcgGriWxkfiIPxhUSgTeA6n ximun@aquilenet.fr"
         ];
       };
+      deploy = { # User dedicated for deployements, Cf. anoat
+        isNormalUser = true;
+        extraGroups = admin_groups;
+        openssh.authorizedKeys.keys = [ "" ];
+      };
     };
   };
   security = {
