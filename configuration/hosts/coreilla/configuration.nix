@@ -29,7 +29,7 @@ in {
     };
     defaultGateway = {
       address = "185.233.102.190";
-      interface = "ens3";
+      interface = "ens10";
     };
     hostName = "coreilla";
     useDHCP = false;
