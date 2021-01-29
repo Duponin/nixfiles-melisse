@@ -30,7 +30,7 @@ in {
       ipv6 = {
         addresses = [{
           address = "2a0c:e304:c0fe:1::4";
-          prefixLength = 48;
+          prefixLength = 64;
         }];
       };
     };
