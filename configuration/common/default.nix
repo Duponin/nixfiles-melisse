@@ -1,7 +1,12 @@
 { config, pkgs, lib, ... }:
 let admin_groups = [ "wheel" "libvirtd" ];
 in {
-
+  imports = [
+    "${
+      builtins.fetchTarball
+      "https://github.com/ryantm/agenix/archive/master.tar.gz"
+    }/modules/age.nix"
+  ];
   environment.systemPackages = with pkgs; [ git ];
   users = {
     mutableUsers = false;
