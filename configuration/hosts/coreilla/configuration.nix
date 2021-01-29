@@ -27,12 +27,15 @@ in {
       address = "2a0c:e304:c0fe:1::1";
       interface = "ens3";
     };
+    defaultGateway = {
+      address = "185.233.102.190";
+      interface = "ens3";
+    };
     hostName = "coreilla";
     useDHCP = false;
     nameservers = [ "2a0c:e300::100" "2a0c:e300::101" ];
     interfaces = {
       ens3 = {
-        mtu = 1500;
         ipv6 = {
           addresses = [{
             address = "2a0c:e304:c0fe:1::2";
@@ -40,7 +43,15 @@ in {
           }];
         };
       };
-      ens9.useDHCP = true; # NAT network to have IPv4
+      ens10 = {
+        mtu = 1378;
+        ipv4 = {
+          addresses = [{
+            address = "185.233.102.135";
+            prefixLength = 26;
+          }];
+        };
+      };
     };
   };
 
