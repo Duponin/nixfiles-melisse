@@ -14,29 +14,6 @@ in {
   monitoring.client.enable = true;
   monitoring.client.host = hostname;
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-  services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    virtualHosts."dolibarr.melisse.org" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/" = {
-        proxyPass = "http://dolibarr.priv.melisse.org";
-        extraConfig = ''
-          proxy_ssl_server_name on;
-        '';
-      };
-    };
-  };
-  security.acme = {
-    acceptTerms = true;
-    email = "admin+acme@melisse.org";
-  };
-
   networking = {
     defaultGateway6 = {
       address = "2a0c:e304:c0fe:1::1";
