@@ -8,6 +8,7 @@ in {
     (nixpkgs-unstable + "/nixos/modules/services/databases/openldap.nix")
     ../../../modules/monitoring/client.nix
     ../../common
+    ../../common/secrets.nix
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
   ];
