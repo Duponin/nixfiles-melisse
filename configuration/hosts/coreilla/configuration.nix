@@ -112,6 +112,7 @@ in {
           "/var/lib/acme/ldap.melisse.org/fullchain.pem";
         olcTLSCertificateFile = "/var/lib/acme/ldap.melisse.org/cert.pem";
         olcTLSCertificateKeyFile = "/var/lib/acme/ldap.melisse.org/key.pem";
+        olcPasswordCryptSaltFormat = "$5$rounds=50000$%.16s";
       };
       children = {
         "cn=schema" = {
@@ -120,12 +121,14 @@ in {
             "${pkgs.openldap}/etc/schema/cosine.ldif"
             "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
             "${pkgs.openldap}/etc/schema/dyngroup.ldif"
+            "${pkgs.openldap}/etc/schema/ppolicy.ldif"
           ];
         };
         "olcDatabase={-1}frontend" = {
           attrs = {
-            objectClass = "olcDatabaseConfig";
+            objectClass = [ "olcDatabaseConfig" "olcFrontendConfig" ];
             olcDatabase = "{-1}frontend";
+            olcPasswordHash = "{CRYPT}";
             olcAccess = [
               "{0}to * by dn.exact=uidNumber=0+gidNumber=0,cn=peercred,cn=external,cn=auth manage stop by * none stop"
             ];
@@ -153,6 +156,20 @@ in {
             olcRootPW.path = "/run/secrets/ldap_admin";
             olcSuffix = "dc=melisse,dc=org";
             olcAccess = [ "{0}to * by * read break" ];
+          };
+        };
+        "cn=module{0}" = {
+          attrs = {
+            objectClass = [ "olcModuleList" ];
+            olcModuleLoad = "ppolicy.la";
+          };
+        };
+        "olcOverlay=ppolicy,olcDatabase={1}mdb" = {
+          attrs = {
+            objectClass = [ "olcConfig" "olcOverlayConfig" "olcPPolicyConfig" ];
+            olcOverlay = "ppolicy";
+            olcPPolicyDefault = "cn=default,ou=policies,dc=melisse,dc=org";
+            olcPPolicyHashCleartext = "TRUE";
           };
         };
       };
@@ -203,4 +220,3 @@ in {
 
   system.stateVersion = "20.09";
 }
-
