@@ -11,6 +11,18 @@
         "url": "https://github.com/ryantm/agenix/archive/37b1d2aa3f2afd196350e43b5e90e8bfd8718d90.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "morph": {
+        "branch": "master",
+        "description": "NixOS deployment tool",
+        "homepage": null,
+        "owner": "DBCDK",
+        "repo": "morph",
+        "rev": "c048d6339f18613a1544bc62ff852cb4c6de1042",
+        "sha256": "0yb8prji2nqjsj1aiiqnbqaajbi5l17rg8k78ry7pl3a8sqa3h1x",
+        "type": "tarball",
+        "url": "https://github.com/DBCDK/morph/archive/c048d6339f18613a1544bc62ff852cb4c6de1042.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",
