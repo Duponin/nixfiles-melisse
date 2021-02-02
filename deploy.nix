@@ -1,9 +1,16 @@
 {
   network = {
     description = "Mélisse hosts";
-    ordering = { tags = [ "prod" ]; };
+    ordering = { tags = [ "staging" "prod" ]; };
   };
 
+  # STAGING HOSTS
+  "kessel.melisse.org" = { config, pkgs, ... }: {
+    deployment.tags = [ "staging" ];
+    imports = [ ./configuration/hosts/kessel/configuration.nix ];
+  };
+
+  # PROD HOSTS
   "aedu.melisse.org" = { config, pkgs, ... }: {
     deployment.tags = [ "prod" ];
     imports = [ ./configuration/hosts/aedu/configuration.nix ];
