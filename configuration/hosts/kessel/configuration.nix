@@ -36,36 +36,36 @@ in {
     };
   };
 
-  # networking.firewall.allowedTCPPorts = [ 80 443 ];
-  # services.nextcloud = {
-  #   https = true;
-  #   enable = true;
-  #   package = pkgs.nextcloud20;
-  #   hostName = "nextcloud.staging.melisse.org";
-  #   config = {
-  #     dbname = "nextcloud";
-  #     dbport = 5432;
-  #     dbtype = "pgsql";
-  #     adminpassFile = "/run/secrets/nextcloud_admin";
-  #     overwriteProtocol = "https";
-  #   };
-  # };
-  # age.secrets.nextcloud_admin.file = ../../../secrets/nextcloud_admin.age;
-  # services.postgresql = {
-  #   enable = true;
-  #   authentication = ''
-  #     host all all 127.0.0.1/32 trust
-  #     host all all ::1/128      trust
-  #   '';
-  #   ensureDatabases = [ "nextcloud" ];
-  #   ensureUsers = [{
-  #     name = "nextcloud";
-  #     ensurePermissions = { "DATABASE nextcloud" = "ALL PRIVILEGES"; };
-  #   }];
-  #   # FIXME: user nextcloud has to be nextcloud database's owner
-  #   # sudo -u postgres psql
-  #   # ALTER DATABASE nextcloud owner to nextcloud;
-  # };
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  services.nextcloud = {
+    https = true;
+    enable = true;
+    package = pkgs.nextcloud20;
+    hostName = "nextcloud.staging.melisse.org";
+    config = {
+      dbname = "nextcloud";
+      dbport = 5432;
+      dbtype = "pgsql";
+      adminpassFile = "/run/secrets/nextcloud_admin";
+      overwriteProtocol = "https";
+    };
+  };
+  age.secrets.nextcloud_admin.file = ../../../secrets/nextcloud_admin.age;
+  services.postgresql = {
+    enable = true;
+    authentication = ''
+      host all all 127.0.0.1/32 trust
+      host all all ::1/128      trust
+    '';
+    ensureDatabases = [ "nextcloud" ];
+    ensureUsers = [{
+      name = "nextcloud";
+      ensurePermissions = { "DATABASE nextcloud" = "ALL PRIVILEGES"; };
+    }];
+    # FIXME: user nextcloud has to be nextcloud database's owner
+    # sudo -u postgres psql
+    # ALTER DATABASE nextcloud owner to nextcloud;
+  };
 
   system.stateVersion = "20.09";
 }
