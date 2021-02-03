@@ -96,6 +96,13 @@ in {
         '';
       };
     };
+    virtualHosts = {
+      "nextcloud.staging.melisse.org" = {
+        default = true;
+        forceSSL = true;
+        enableACME = true;
+      };
+    };
   };
   services.openldap = {
     enable = true;
