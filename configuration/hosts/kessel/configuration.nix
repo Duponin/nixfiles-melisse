@@ -170,6 +170,49 @@ in {
         };
       };
     };
+    declarativeContents = {
+      "dc=melisse,dc=org" = ''
+        dn: dc=melisse, dc=org
+        objectClass: top
+        objectClass: dcObject
+        objectClass: organization
+        o: melisse.org
+        dc: melisse
+
+        dn: ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: organizationalUnit
+        ou: groups
+
+        dn: ou=members,dc=melisse,dc=org
+        objectClass: top
+        objectClass: organizationalUnit
+        ou: members
+
+        dn: ou=applications,dc=melisse,dc=org
+        objectClass: top
+        objectClass: organizationalUnit
+        ou: applications
+
+        dn: ou=subscriptiontypes,ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: organizationalUnit
+        ou: subscriptiontypes
+        ou: groups
+
+        dn: ou=usertypes,ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: organizationalUnit
+        ou: usertypes
+        ou: groups
+
+        dn: ou=collectivities,ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: organizationalUnit
+        ou: collectivities
+        ou: groups
+      '';
+    };
   };
   age.secrets.ldap_admin.file = ../../../secrets/ldap_admin.age;
 
