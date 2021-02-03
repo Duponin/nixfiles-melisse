@@ -164,7 +164,10 @@ in {
                 by anonymous auth
                 by dn.subtree="ou=applications,dc=melisse,dc=org" read
                 by * none''
-              ''{1}to attrs=userPassword
+              ''{1}to dn.subtree="ou=collectivities,ou=groups,dc=melisse,dc=org"
+                by dn.subtree="ou=applications,dc=melisse,dc=org" read
+                by * none''
+              ''{2}to attrs=userPassword
                 by self write
                 by anonymous auth
                 by * none''
@@ -229,6 +232,13 @@ in {
         ou: collectivities
         ou: groups
 
+        dn: cn=association1,ou=collectivities,ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: groupOfUniqueNames
+        cn: association1
+        uniqueMember: uid=toto,ou=members,dc=melisse,dc=org
+        uniqueMember: uid=tata,ou=members,dc=melisse,dc=org
+
         dn: uid=nextcloud,ou=applications,dc=melisse,dc=org
         objectClass: top
         objectClass: inetOrgPerson
@@ -249,6 +259,18 @@ in {
         mail: toto@melisse.org
         userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCRya2pQeGk5RWI5SXIwczUkZnd3Vkl6MW1
          lb0F1L21Rb1NBdmJlcUJJSkNMRGEyWC56VzNhdjhxbWxEMg==
+
+        dn: uid=tata,ou=members,dc=melisse,dc=org
+        objectClass: top
+        objectClass: person
+        objectClass: inetOrgPerson
+        cn: Tata Tata
+        sn: Tata
+        givenName: Tata
+        uid: tata
+        mail: tata@melisse.org
+        userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCR0cXJhcU1pRTBibVlhcDkkNnZ2elYxNVZ
+         ncEVWTndsU1hHbXZ4aVdDdUFlZlNJVHBDY1RIMml2dXhZMQ==
       '';
     };
   };
