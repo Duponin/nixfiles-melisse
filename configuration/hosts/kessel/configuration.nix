@@ -151,7 +151,13 @@ in {
             olcRootDN = "cn=admin,dc=melisse,dc=org";
             olcRootPW.path = "/run/secrets/ldap_admin";
             olcSuffix = "dc=melisse,dc=org";
-            olcAccess = [ "{0}to * by * read break" ];
+            olcAccess = [
+              ''{0}to attrs=userPassword
+                by self write
+                by anonymous auth
+                by dn.subtree="ou=applications,dc=melisse,dc=org" read
+                by * none''
+            ];
           };
         };
         "cn=module{0}" = {
