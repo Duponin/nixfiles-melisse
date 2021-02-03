@@ -152,10 +152,14 @@ in {
             olcRootPW.path = "/run/secrets/ldap_admin";
             olcSuffix = "dc=melisse,dc=org";
             olcAccess = [
-              ''{0}to attrs=userPassword
+              ''{0}to dn.subtree="ou=members,dc=melisse,dc=org"
                 by self write
                 by anonymous auth
                 by dn.subtree="ou=applications,dc=melisse,dc=org" read
+                by * none''
+              ''{1}to attrs=userPassword
+                by self write
+                by anonymous auth
                 by * none''
             ];
           };
@@ -226,6 +230,18 @@ in {
         cn: nextcloud
         userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCR0Z0Z2L3pHWmhxbGVmV3AkTHguSzRnRWx
          HODBja2JLQ0RhdUtFbGdoLmkyNXdzbUlERTZVTGN3ZjB3Lw==
+
+        dn: uid=toto,ou=members,dc=melisse,dc=org
+        objectClass: top
+        objectClass: person
+        objectClass: inetOrgPerson
+        cn: Toto Toto
+        sn: Toto
+        givenName: Toto
+        uid: toto
+        mail: toto@melisse.org
+        userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCRya2pQeGk5RWI5SXIwczUkZnd3Vkl6MW1
+         lb0F1L21Rb1NBdmJlcUJJSkNMRGEyWC56VzNhdjhxbWxEMg==
       '';
     };
   };
