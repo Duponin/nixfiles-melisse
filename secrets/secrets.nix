@@ -11,6 +11,6 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrjpGuh1fHXlBrGYrCrAHMUJ/IVWOMyZhaFztGLqWyN";
   systems = [ coreilla kessel ];
 in {
-  "ldap_admin.age".publicKeys = users ++ [ coreilla ];
+  "ldap_admin.age".publicKeys = users ++ [ coreilla kessel ];
   "nextcloud_admin.age".publicKeys = users ++ [ kessel ];
 }
