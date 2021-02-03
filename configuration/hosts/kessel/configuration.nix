@@ -43,7 +43,7 @@ in {
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 636 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
   services.nextcloud = {
     https = true;
     enable = true;
@@ -211,6 +211,15 @@ in {
         objectClass: organizationalUnit
         ou: collectivities
         ou: groups
+
+        dn: uid=nextcloud,ou=applications,dc=melisse,dc=org
+        objectClass: top
+        objectClass: inetOrgPerson
+        uid: nextcloud
+        sn: nextcloud
+        cn: nextcloud
+        userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCR0Z0Z2L3pHWmhxbGVmV3AkTHguSzRnRWx
+         HODBja2JLQ0RhdUtFbGdoLmkyNXdzbUlERTZVTGN3ZjB3Lw==
       '';
     };
   };
