@@ -40,6 +40,7 @@ in {
           }];
         };
       };
+      ens9.useDHCP = true;
     };
   };
 
