@@ -11,6 +11,8 @@ in {
     ./hardware-configuration.nix
   ];
 
+  # Prevents routing issue which hijack br-vm-lan
+  boot.kernel.sysctl."net.ipv6.conf.br-vm-lan.accept_ra" = false;
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -54,6 +56,9 @@ in {
     firewall.trustedInterfaces = [ vm_pub_int ];
     hostName = "coruscant";
     interfaces = {
+      br-vm-lan.useDHCP = false; # There is DHCP and it's causing mess
+      br-vm-nat.useDHCP = false; # /
+      br-vm-wat.useDHCP = false; # /
       enp36s0f0 = { useDHCP = false; };
       enp36s0f = { useDHCP = false; };
       enp38s0 = {
