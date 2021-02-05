@@ -6,6 +6,7 @@ in {
   imports = [
     (nixpkgs-unstable + "/nixos/modules/services/databases/openldap.nix")
     ../../../modules/monitoring/client.nix
+    ../../../modules/nextcloud.nix
     ../../common
     ../../common/secrets.nix
     ../../common/qemu-guest
@@ -45,35 +46,43 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
-  services.nextcloud = {
-    https = true;
+
+  nextcloud = {
     enable = true;
-    package = pkgs.nextcloud20;
-    hostName = "nextcloud.staging.melisse.org";
-    config = {
-      dbname = "nextcloud";
-      dbport = 5432;
-      dbtype = "pgsql";
-      adminpassFile = "/run/secrets/nextcloud_admin";
-      overwriteProtocol = "https";
+    url = "nextcloud.staging.melisse.org";
+    apps = [
+      "user_ldap"
+      "groupfolders"
+      "groupquota"
+    ];
+    settings = {
+      apps.core.shareapi_allow_resharing = "yes";
+      apps.core.shareapi_allow_group_sharing = "yes";
+      apps.core.shareapi_enabled = "yes";
+      apps.core.shareapi_allow_links = "yes";
+      apps.core.shareapi_exclude_groups = "no";
+      apps.core.shareapi_only_share_with_group_members = "no";
+      apps.user_ldap = {
+        s01ldap_host = "ldaps:\/\/ldap.staging.melisse.org";
+        s01ldap_port = "636";
+        s01ldap_dn = "uid=nextcloud,ou=applications,dc=melisse,dc=org";
+        s01ldap_base_users = "ou=members,dc=melisse,dc=org";
+        s01ldap_base_groups = "ou=collectivities,ou=groups,dc=melisse,dc=org\nou=subscriptiontypes,ou=groups,dc=melisse,dc=org";
+        s01ldap_attributes_for_group_search = "cn\ndescription";
+        s01ldap_nested_groups = "0";
+        s01ldap_group_member_assoc_attribute = "uniqueMember";
+        s01ldap_email_attr = "mail";
+        s01ldap_group_filter_mode = "1";
+        s01ldap_display_name = "cn";
+        s01ldap_userfilter_objectclass = "inetOrgPerson";
+        s01ldap_userlist_filter = "(|(objectclass=inetOrgPerson))";
+        s01ldap_login_filter = "(&(|(objectclass=inetOrgPerson))(uid=%uid))";
+        s01ldap_group_filter = "(|(objectclass=groupOfUniqueNames))";
+      };
     };
   };
+  
   age.secrets.nextcloud_admin.file = ../../../secrets/nextcloud_admin.age;
-  services.postgresql = {
-    enable = true;
-    authentication = ''
-      host all all 127.0.0.1/32 trust
-      host all all ::1/128      trust
-    '';
-    ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [{
-      name = "nextcloud";
-      ensurePermissions = { "DATABASE nextcloud" = "ALL PRIVILEGES"; };
-    }];
-    # FIXME: user nextcloud has to be nextcloud database's owner
-    # sudo -u postgres psql
-    # ALTER DATABASE nextcloud owner to nextcloud;
-  };
 
   # LDAP staging
   services.nginx = {
@@ -95,13 +104,6 @@ in {
           proxy_ssl_server_name on;
           deny all;
         '';
-      };
-    };
-    virtualHosts = {
-      "nextcloud.staging.melisse.org" = {
-        default = true;
-        forceSSL = true;
-        enableACME = true;
       };
     };
   };
@@ -165,7 +167,7 @@ in {
                 by anonymous auth
                 by dn.subtree="ou=applications,dc=melisse,dc=org" read
                 by * none''
-              ''{1}to dn.subtree="ou=collectivities,ou=groups,dc=melisse,dc=org"
+              ''{1}to dn.subtree="ou=groups,dc=melisse,dc=org"
                 by dn.subtree="ou=applications,dc=melisse,dc=org" read
                 by * none''
               ''{2}to attrs=userPassword
@@ -233,12 +235,28 @@ in {
         ou: collectivities
         ou: groups
 
+        dn: cn=free-individual,ou=subscriptiontypes,ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: groupOfUniqueNames
+        cn: free-individual
+        uniqueMember: uid=toto,ou=members,dc=melisse,dc=org
+        uniqueMember: uid=tata,ou=members,dc=melisse,dc=org
+        uniqueMember: uid=tutu,ou=members,dc=melisse,dc=org
+
         dn: cn=association1,ou=collectivities,ou=groups,dc=melisse,dc=org
         objectClass: top
         objectClass: groupOfUniqueNames
         cn: association1
+        description: Une association vraiment pas mal du tout :)
         uniqueMember: uid=toto,ou=members,dc=melisse,dc=org
         uniqueMember: uid=tata,ou=members,dc=melisse,dc=org
+
+        dn: cn=association2,ou=collectivities,ou=groups,dc=melisse,dc=org
+        objectClass: top
+        objectClass: groupOfUniqueNames
+        cn: association2
+        description: Une autre association qu'elle est bien!
+        uniqueMember: uid=tutu,ou=members,dc=melisse,dc=org
 
         dn: uid=nextcloud,ou=applications,dc=melisse,dc=org
         objectClass: top
@@ -272,6 +290,19 @@ in {
         mail: tata@melisse.org
         userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCR0cXJhcU1pRTBibVlhcDkkNnZ2elYxNVZ
          ncEVWTndsU1hHbXZ4aVdDdUFlZlNJVHBDY1RIMml2dXhZMQ==
+
+        dn: uid=tutu,ou=members,dc=melisse,dc=org
+        objectClass: top
+        objectClass: person
+        objectClass: inetOrgPerson
+        cn: Tutu Tutu
+        sn: Tutu
+        givenName: Tutu
+        uid: tutu
+        mail: tutu@melisse.org
+        userPassword:: e0NSWVBUfSQ1JHJvdW5kcz01MDAwMCR6RTk0NU8zNkR4YWZHWGwkQS85bjNDOUg
+         vN25PdFo4U252Z1lNN0RsaHFYQTNoWktiTFRrekkuVFRlMA==
+
       '';
     };
   };
