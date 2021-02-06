@@ -9,8 +9,10 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDiqPblq1nqIQtP9YHkVMD0pwKsyL2yeK6KMdeQYoVrD";
   kessel =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrjpGuh1fHXlBrGYrCrAHMUJ/IVWOMyZhaFztGLqWyN";
+  sullust =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID6WlP2h/XhwdJhtdSbrYgJ3zXRMsrmepCZwbDBWuYPH";
   systems = [ coreilla kessel ];
 in {
   "ldap_admin.age".publicKeys = users ++ [ coreilla kessel ];
-  "nextcloud_admin.age".publicKeys = users ++ [ kessel ];
+  "nextcloud_admin.age".publicKeys = users ++ [ sullust kessel ];
 }

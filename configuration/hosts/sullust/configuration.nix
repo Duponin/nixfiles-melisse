@@ -3,7 +3,9 @@ let hostname = "sullust";
 in {
   imports = [ # imports
     ../../../modules/monitoring/client.nix
+    ../../../modules/nextcloud.nix
     ../../common
+    ../../common/secrets.nix
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
   ];
@@ -45,6 +47,47 @@ in {
         };
       };
     };
+  };
+
+  nextcloud = {
+    enable = true;
+    url = "cloud.melisse.org";
+    apps = [ "user_ldap" "groupfolders" "groupquota" "calendar" "contacts" ];
+    settings = {
+      apps.core.shareapi_allow_resharing = "yes";
+      apps.core.shareapi_allow_group_sharing = "yes";
+      apps.core.shareapi_enabled = "yes";
+      apps.core.shareapi_allow_links = "yes";
+      apps.core.shareapi_exclude_groups = "no";
+      apps.core.shareapi_only_share_with_group_members = "no";
+      apps.user_ldap = {
+        s01ldap_host = "ldaps://ldap.melisse.org";
+        s01ldap_port = "636";
+        s01ldap_dn = "uid=nextcloud,ou=applications,dc=melisse,dc=org";
+        s01ldap_base_users = "ou=members,dc=melisse,dc=org";
+        s01ldap_base_groups = ''
+          ou=collectivities,ou=groups,dc=melisse,dc=org
+          ou=subscriptiontypes,ou=groups,dc=melisse,dc=org'';
+        s01ldap_attributes_for_group_search = ''
+          cn
+          description'';
+        s01ldap_nested_groups = "0";
+        s01ldap_group_member_assoc_attribute = "uniqueMember";
+        s01ldap_email_attr = "mail";
+        s01ldap_group_filter_mode = "1";
+        s01ldap_display_name = "cn";
+        s01ldap_userfilter_objectclass = "inetOrgPerson";
+        s01ldap_userlist_filter = "(|(objectclass=inetOrgPerson))";
+        s01ldap_login_filter = "(&(|(objectclass=inetOrgPerson))(uid=%uid))";
+        s01ldap_group_filter = "(|(objectclass=groupOfUniqueNames))";
+      };
+    };
+  };
+
+  age.secrets.nextcloud_admin = {
+    file = ../../../secrets/nextcloud_admin.age;
+    owner = "nextcloud";
+    group = "nextcloud";
   };
 
   system.stateVersion = "20.09";

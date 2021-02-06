@@ -32,7 +32,9 @@ in {
     settings = mkOption {
       type = types.attrsOf types.attrs;
       default = { };
-      description = "Nextcloud settings to be imported using `occ config:import`";
+      description =
+        "Nextcloud settings to be imported using `occ config:import`";
+    };
   };
 
   config = mkIf cfg.enable {
