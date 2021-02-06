@@ -8,13 +8,10 @@ let
   cfg = config.nextcloud;
 
   # Cleanup override info
-  settings = pkgs.lib.mapAttrsRecursiveCond
-    (s: ! s ? "_type")
-    (_: value: if value ? "content" then value.content else value)
-    cfg.settings;
+  settings = pkgs.lib.mapAttrsRecursiveCond (s: !s ? "_type")
+    (_: value: if value ? "content" then value.content else value) cfg.settings;
 
-in
-{
+in {
 
   options.nextcloud = {
 
@@ -23,29 +20,19 @@ in
     url = mkOption {
       type = types.str;
       default = "";
-      description = "
-        URL of the Nextcloud installation
-      ";
+      description = "URL of the Nextcloud installation";
     };
-    
+
     apps = mkOption {
       type = types.listOf types.str;
-      default = [];
-      description = "
-        List of nextcloud apps to install & enable
-      ";
+      default = [ ];
+      description = "List of nextcloud apps to install & enable";
     };
 
     settings = mkOption {
       type = types.attrsOf types.attrs;
-      default = {};
-      description = "
-        Nextcloud settings to be imported using `occ config:import`
-
-        https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/occ_command.html#config-commands
-      ";
-    };
-
+      default = { };
+      description = "Nextcloud settings to be imported using `occ config:import`";
   };
 
   config = mkIf cfg.enable {

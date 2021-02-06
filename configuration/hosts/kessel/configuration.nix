@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
-let hostname = "kessel";
+let
+  hostname = "kessel";
   nixpkgs-unstable = fetchTarball
     "https://github.com/nixos/nixpkgs/archive/f217c0ea7c148ddc0103347051555c7c252dcafb.tar.gz";
 in {
@@ -12,7 +13,6 @@ in {
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
   ];
-
 
   # Cf. above, we use openldap service from unstable
   disabledModules = [ "services/databases/openldap.nix" ];
@@ -50,13 +50,7 @@ in {
   nextcloud = {
     enable = true;
     url = "nextcloud.staging.melisse.org";
-    apps = [
-      "user_ldap"
-      "groupfolders"
-      "groupquota"
-      "calendar"
-      "contacts"
-    ];
+    apps = [ "user_ldap" "groupfolders" "groupquota" "calendar" "contacts" ];
     settings = {
       apps.core.shareapi_allow_resharing = "yes";
       apps.core.shareapi_allow_group_sharing = "yes";
@@ -65,12 +59,16 @@ in {
       apps.core.shareapi_exclude_groups = "no";
       apps.core.shareapi_only_share_with_group_members = "no";
       apps.user_ldap = {
-        s01ldap_host = "ldaps:\/\/ldap.staging.melisse.org";
+        s01ldap_host = "ldaps://ldap.staging.melisse.org";
         s01ldap_port = "636";
         s01ldap_dn = "uid=nextcloud,ou=applications,dc=melisse,dc=org";
         s01ldap_base_users = "ou=members,dc=melisse,dc=org";
-        s01ldap_base_groups = "ou=collectivities,ou=groups,dc=melisse,dc=org\nou=subscriptiontypes,ou=groups,dc=melisse,dc=org";
-        s01ldap_attributes_for_group_search = "cn\ndescription";
+        s01ldap_base_groups = ''
+          ou=collectivities,ou=groups,dc=melisse,dc=org
+          ou=subscriptiontypes,ou=groups,dc=melisse,dc=org'';
+        s01ldap_attributes_for_group_search = ''
+          cn
+          description'';
         s01ldap_nested_groups = "0";
         s01ldap_group_member_assoc_attribute = "uniqueMember";
         s01ldap_email_attr = "mail";
@@ -83,8 +81,12 @@ in {
       };
     };
   };
-  
-  age.secrets.nextcloud_admin.file = ../../../secrets/nextcloud_admin.age;
+
+  age.secrets.nextcloud_admin = {
+    file = ../../../secrets/nextcloud_admin.age;
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
 
   # LDAP staging
   services.nginx = {
@@ -118,8 +120,10 @@ in {
         olcLogLevel = [ "stats" ];
         olcTLSCACertificateFile =
           "/var/lib/acme/ldap.staging.melisse.org/fullchain.pem";
-        olcTLSCertificateFile = "/var/lib/acme/ldap.staging.melisse.org/cert.pem";
-        olcTLSCertificateKeyFile = "/var/lib/acme/ldap.staging.melisse.org/key.pem";
+        olcTLSCertificateFile =
+          "/var/lib/acme/ldap.staging.melisse.org/cert.pem";
+        olcTLSCertificateKeyFile =
+          "/var/lib/acme/ldap.staging.melisse.org/key.pem";
         olcPasswordCryptSaltFormat = "$5$rounds=50000$%.16s";
       };
       children = {
@@ -164,18 +168,21 @@ in {
             olcRootPW.path = "/run/secrets/ldap_admin";
             olcSuffix = "dc=melisse,dc=org";
             olcAccess = [
-              ''{0}to dn.subtree="ou=members,dc=melisse,dc=org"
-                by self write
-                by anonymous auth
-                by dn.subtree="ou=applications,dc=melisse,dc=org" read
-                by * none''
-              ''{1}to dn.subtree="ou=groups,dc=melisse,dc=org"
-                by dn.subtree="ou=applications,dc=melisse,dc=org" read
-                by * none''
-              ''{2}to attrs=userPassword
-                by self write
-                by anonymous auth
-                by * none''
+              ''
+                {0}to dn.subtree="ou=members,dc=melisse,dc=org"
+                                by self write
+                                by anonymous auth
+                                by dn.subtree="ou=applications,dc=melisse,dc=org" read
+                                by * none''
+              ''
+                {1}to dn.subtree="ou=groups,dc=melisse,dc=org"
+                                by dn.subtree="ou=applications,dc=melisse,dc=org" read
+                                by * none''
+              ''
+                {2}to attrs=userPassword
+                                by self write
+                                by anonymous auth
+                                by * none''
             ];
           };
         };
