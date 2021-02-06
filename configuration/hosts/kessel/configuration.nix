@@ -54,6 +54,8 @@ in {
       "user_ldap"
       "groupfolders"
       "groupquota"
+      "calendar"
+      "contacts"
     ];
     settings = {
       apps.core.shareapi_allow_resharing = "yes";
