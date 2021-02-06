@@ -10,7 +10,7 @@ let
   kessel =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrjpGuh1fHXlBrGYrCrAHMUJ/IVWOMyZhaFztGLqWyN";
   sullust =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID6WlP2h/XhwdJhtdSbrYgJ3zXRMsrmepCZwbDBWuYPH";
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj4Gqib56G8kKgOUxcZeM4YxEhos41v6Ztrf2/6gs+M";
   systems = [ coreilla kessel ];
 in {
   "ldap_admin.age".publicKeys = users ++ [ coreilla kessel ];
