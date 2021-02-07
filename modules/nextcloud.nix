@@ -92,6 +92,8 @@ in {
       script = mkAfter ''
         nextcloud-occ app:enable ${concatStringsSep " " cfg.apps}
         echo '${toJSON settings}' | nextcloud-occ config:import
+        # config import ignored without an upgrade
+        nextcloud-occ upgrade
       '';
     };
 
