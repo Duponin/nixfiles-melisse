@@ -2,6 +2,7 @@
 let hostname = "sullust";
 in {
   imports = [ # imports
+    ../../../modules/backup/client.nix
     ../../../modules/monitoring/client.nix
     ../../../modules/nextcloud.nix
     ../../common
@@ -88,10 +89,19 @@ in {
     };
   };
 
-  age.secrets.nextcloud_admin = {
-    file = ../../../secrets/nextcloud_admin.age;
-    owner = "nextcloud";
-    group = "nextcloud";
+  backup.client = {
+    enable = true;
+    host = hostname;
+    paths = [ "/var/lib/nextcloud" "/var/backup/postgresql" ];
+  };
+
+  age.secrets = {
+    nextcloud_admin = {
+      file = ../../../secrets/nextcloud_admin.age;
+      owner = "nextcloud";
+      group = "nextcloud";
+    };
+    backup_passwd = { file = ../../../secrets/sullust_backup_passwd.age; };
   };
 
   system.stateVersion = "20.09";

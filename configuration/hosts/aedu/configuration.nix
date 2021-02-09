@@ -43,6 +43,12 @@ in {
       ];
       path = "/var/lib/backups/melisse/malastare";
     };
+    melisse_sullust = {
+      authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj4Gqib56G8kKgOUxcZeM4YxEhos41v6Ztrf2/6gs+M root@sullust"
+      ];
+      path = "/var/lib/backups/melisse/sullust";
+    };
   };
 
   system.stateVersion = "20.09";

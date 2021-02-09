@@ -86,12 +86,6 @@ in {
     };
   };
 
-  age.secrets.nextcloud_admin = {
-    file = ../../../secrets/nextcloud_admin.age;
-    owner = "nextcloud";
-    group = "nextcloud";
-  };
-
   # LDAP staging
   services.nginx = {
     enable = true;
@@ -319,7 +313,13 @@ in {
       '';
     };
   };
-  age.secrets.ldap_admin.file = ../../../secrets/ldap_admin.age;
-
+  age.secrets = {
+    nextcloud_admin = {
+      file = ../../../secrets/nextcloud_admin.age;
+      owner = "nextcloud";
+      group = "nextcloud";
+    };
+    ldap_admin = { file = ../../../secrets/ldap_admin.age; };
+  };
   system.stateVersion = "20.09";
 }

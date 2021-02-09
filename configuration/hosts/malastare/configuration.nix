@@ -5,6 +5,7 @@ in {
     ../../../modules/backup/client.nix
     ../../../modules/monitoring/client.nix
     ../../common
+    ../../common/secrets.nix
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
   ];
@@ -125,6 +126,10 @@ in {
         };
       };
     '';
+  };
+
+  age.secrets = {
+    backup_passwd = { file = ../../../secrets/malastare_backup_passwd.age; };
   };
 
   system.stateVersion = "20.09";

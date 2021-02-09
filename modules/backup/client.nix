@@ -21,7 +21,7 @@ in {
       repo = "borg@aedu.melisse.org:/var/lib/backups/melisse/${cfg.host}";
       encryption = {
         mode = "repokey-blake2";
-        passCommand = "cat /root/backup.key";
+        passCommand = "cat /run/secrets/backup_passwd";
       };
       environment = { BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key"; };
       compression = "auto,lzma";

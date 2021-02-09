@@ -192,7 +192,7 @@ in {
       };
     };
   };
-  age.secrets.ldap_admin.file = ../../../secrets/ldap_admin.age;
+  age.secrets = { ldap_admin = { file = ../../../secrets/ldap_admin.age; }; };
 
   # Dolibarr
   services.postgresql = {
