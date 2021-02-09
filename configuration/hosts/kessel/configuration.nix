@@ -79,6 +79,10 @@ in {
         s01ldap_login_filter = "(&(|(objectclass=inetOrgPerson))(uid=%uid))";
         s01ldap_group_filter = "(|(objectclass=groupOfUniqueNames))";
       };
+      apps.groupquota = {
+        "quota_free-individual" = "10737418240"; # 10G
+        "quota_free-collectivity" = "10737418240"; # 10G
+      };
     };
   };
 

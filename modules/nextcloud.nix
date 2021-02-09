@@ -55,6 +55,12 @@ in {
       # ALTER DATABASE nextcloud owner to nextcloud;
     };
 
+    services.postgresqlBackup = {
+      enable = true;
+      startAt = "*-*-* 23:30:00";
+      backupAll = true;
+    };
+
     services.nginx = {
       enable = true;
       recommendedGzipSettings = true;
