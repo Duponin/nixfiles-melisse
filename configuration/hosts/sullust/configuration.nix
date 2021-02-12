@@ -81,6 +81,7 @@ in {
         s01ldap_userlist_filter = "(|(objectclass=inetOrgPerson))";
         s01ldap_login_filter = "(&(|(objectclass=inetOrgPerson))(uid=%uid))";
         s01ldap_group_filter = "(|(objectclass=groupOfUniqueNames))";
+        s01ldap_turn_on_pwd_change = "1";
       };
       apps.groupquota = {
         "quota_free-individual" = "10737418240"; # 10G
