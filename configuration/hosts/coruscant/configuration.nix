@@ -9,10 +9,10 @@ in {
     ../../common
     ../../common/hypervisor.nix
     ./hardware-configuration.nix
+    ./dhcp.nix
+    ./router.nix
   ];
 
-  # Prevents routing issue which hijack br-vm-lan
-  boot.kernel.sysctl."net.ipv6.conf.br-vm-lan.accept_ra" = false;
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -53,15 +53,60 @@ in {
       br-vm-lan.interfaces = [ ];
       br-vm-nat.interfaces = [ ];
     };
+    firewall.checkReversePath = false;
     firewall.trustedInterfaces = [ vm_pub_int ];
     hostName = "coruscant";
     interfaces = {
-      br-vm-lan.useDHCP = false; # There is DHCP and it's causing mess
-      br-vm-nat.useDHCP = false; # /
-      br-vm-wat.useDHCP = false; # /
-      enp36s0f0 = { useDHCP = false; };
-      enp36s0f = { useDHCP = false; };
+      br-vm-lan = {
+        useDHCP = false;
+        ipv6 = {
+          addresses = [
+            {
+              address = "2a0c:e304:c0fe::1";
+              prefixLength = 64;
+            }
+            {
+              address = "2a0c:e304:c0fe:1::1";
+              prefixLength = 64;
+            }
+          ];
+        };
+      };
+      br-vm-nat = {
+        useDHCP = false;
+        ipv4 = {
+          addresses = [{
+            address = "10.1.0.1";
+            prefixLength = 16;
+          }];
+        };
+      };
+      br-vm-wan = {
+        useDHCP = false;
+        # FIXME MTU is not applied, it has to be done by hand
+        mtu = 1378;
+        ipv4 = {
+          addresses = [{ # Used for NAT-ing purpose
+            address = "185.233.102.134";
+            prefixLength = 26;
+          }];
+        };
+        ipv6 = {
+          addresses = [{
+            # Needed for our /48 block
+            # The router is sending packets to /48 to this IP
+            address = "2a0c:e300:12::134";
+            prefixLength = 48;
+          }];
+        };
+      };
+      enp36s0f0.useDHCP = false;
+      enp36s0f.useDHCP = false;
       enp38s0 = {
+        # This is the host interface, it should only be used for
+        # admin purpose and nothing else
+
+        useDHCP = false;
         # FIXME MTU is not applied, it has to be done by hand
         mtu = 1378;
         ipv4 = {
@@ -75,22 +120,20 @@ in {
             address = "2a0c:e300:12::133";
             prefixLength = 48;
           }];
-          routes = [{
-            address = "2a0c:e304:c0fe::";
-            prefixLength = 48;
-            via = "2a0c:e300:12::134";
-          }];
         };
       };
-      enp39s0 = { useDHCP = false; };
+      enp39s0.useDHCP = false;
       enp42s0f3u5u3c2.useDHCP = false;
     };
     nameservers = [
-      "185.233.100.100"
-      "185.233.100.101"
-      "1.1.1.1"
       "2a0c:e300::100"
       "2a0c:e300::101"
+      "185.233.100.100"
+      "185.233.100.101"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+      "1.0.0.1"
+      "1.1.1.1"
     ];
     useDHCP = false;
   };
