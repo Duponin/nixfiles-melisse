@@ -11,6 +11,7 @@ in {
     ./hardware-configuration.nix
     ./dhcp.nix
     ./router.nix
+    ./docker.nix
   ];
 
   boot.loader.grub = {
@@ -33,6 +34,11 @@ in {
 
   fileSystems."/var/lib/libvirt/images" = {
     device = "/dev/disk/by-uuid/66978328-978a-4943-b832-88201482756f";
+    fsType = "ext4";
+  };
+
+  fileSystems."/var/lib/docker" = {
+    device = "/dev/disk/by-uuid/03e8d0f1-cbf3-4738-a0fa-4d1110a8110f";
     fsType = "ext4";
   };
 
