@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [ ../../common/secrets.nix ];
   age.secrets.wireguard_privatekey.file =
     ../../../secrets/coruscant_wireguard_privatekey.age;
   networking.wireguard = {
