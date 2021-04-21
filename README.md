@@ -25,6 +25,14 @@ If you have [`Nix`](https://nixos.org/guides/install-nix.html) installed on your
 
 Currently secrets are managed by [`agenix`](https://github.com/ryantm/agenix).
 
+### Generate a secret
+
+1. Get `age` commands by entering in the `nix-shell`
+2. Enter in the `secrets` directory
+3. Edit the secret with `age -e <the file holding a secret>.age`
+  1. a few random secrets can be generated with `base64 /dev/urandom | head`
+4. Save and close your `$EDITOR`
+
 ## Deployements
 
 Currently deployements are done with [`morph`](https://github.com/DBCDK/morph).

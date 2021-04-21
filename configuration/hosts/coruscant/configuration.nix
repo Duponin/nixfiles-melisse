@@ -12,6 +12,7 @@ in {
     ./dhcp.nix
     ./router.nix
     ./docker.nix
+    ./wireguard.nix
   ];
 
   boot.loader.grub = {
