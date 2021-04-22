@@ -10,14 +10,14 @@ in {
   age.secrets.wireguard_privatekey.file =
     ../../../secrets/florrum_wireguard_privatekey.age;
 
-  monitoring.client.enable = "true";
+  monitoring.client.enable = true;
   monitoring.client.host = hostname;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    hostname = hostname;
+    hostName = hostname;
     useDHCP = false;
     interfaces.enp2s0.useDHCP = true;
     wireguard.interfaces = {
