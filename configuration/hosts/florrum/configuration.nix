@@ -4,8 +4,11 @@ in {
   imports = [ # imports
     ../../../modules/monitoring/client.nix
     ../../common
+    ../../common/secrets.nix
     ./hardware-configuration.nix
   ];
+  age.secrets.wireguard_privatekey.file =
+    ../../../secrets/florrum_wireguard_privatekey.age;
 
   monitoring.client.enable = "true";
   monitoring.client.host = hostname;
@@ -20,7 +23,7 @@ in {
     wireguard.interfaces = {
       wg0 = {
         listenPort = 51820;
-        privateKeyFile = "/root/wg_private_key";
+        privateKeyFile = "/run/secrets/wireguard_privatekey";
         ips = [ "2a0c:e304:c0fe:20::12/64" ];
 
         peers = [{

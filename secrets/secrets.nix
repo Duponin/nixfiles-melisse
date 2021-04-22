@@ -9,6 +9,8 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDiqPblq1nqIQtP9YHkVMD0pwKsyL2yeK6KMdeQYoVrD";
   coruscant =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDvGfzUwQsYZYzAx9fnrsub9yc/9AsGjJzGJSUvhZhxJ";
+  florrum =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5i+V0O8vCVAw/ds4wnz99mRTYP3OgBcVyZuTT4ctWL";
   kessel =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrjpGuh1fHXlBrGYrCrAHMUJ/IVWOMyZhaFztGLqWyN";
   sullust =
@@ -19,4 +21,5 @@ in {
   "nextcloud_admin.age".publicKeys = users ++ [ sullust kessel ];
   "sullust_backup_passwd.age".publicKeys = users ++ [ sullust ];
   "coruscant_wireguard_privatekey.age".publicKeys = users ++ [ coruscant ];
+  "florrum_wireguard_privatekey.age".publicKeys = users ++ [ florrum ];
 }
