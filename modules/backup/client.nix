@@ -18,7 +18,7 @@ in {
     services.borgbackup.jobs.aedu = {
       paths = cfg.paths;
       doInit = true;
-      repo = "borg@aedu.melisse.org:/var/lib/backups/melisse/${cfg.host}";
+      repo = "borg@backup.melisse.org:/var/lib/backups/melisse/${cfg.host}";
       encryption = {
         mode = "repokey-blake2";
         passCommand = "cat /run/secrets/backup_passwd";
