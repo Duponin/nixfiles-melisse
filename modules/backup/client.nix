@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.borgbackup.jobs.aedu = {
+    services.borgbackup.jobs.backup_melisse_org = {
       paths = cfg.paths;
       doInit = true;
       repo = "borg@backup.melisse.org:/var/lib/backups/melisse/${cfg.host}";
