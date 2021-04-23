@@ -20,7 +20,7 @@
       fsType = "vfat";
     };
 
-  fileSystems."/backups" =
+  fileSystems."/var/lib/backups" =
     { device = "/dev/disk/by-label/backups";
       fsType = "ext4";
     };
