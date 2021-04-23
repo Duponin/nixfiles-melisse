@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "37b1d2aa3f2afd196350e43b5e90e8bfd8718d90",
-        "sha256": "0jgcwx41nq5wd8nzprwc4b997sqc509nsgs9rzsi6p8aymcl58bl",
+        "rev": "f30f0eeb116ad1bebf5f0c48d53682de5e3be3a5",
+        "sha256": "1gk0am5w1rxdlqc1zh6lawhvm23bq06vha547h8kfarm9hndjpyq",
         "type": "tarball",
-        "url": "https://github.com/ryantm/agenix/archive/37b1d2aa3f2afd196350e43b5e90e8bfd8718d90.tar.gz",
+        "url": "https://github.com/ryantm/agenix/archive/f30f0eeb116ad1bebf5f0c48d53682de5e3be3a5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "morph": {
