@@ -7,6 +7,7 @@ in {
   imports = [
     (nixpkgs-unstable + "/nixos/modules/services/databases/openldap.nix")
     ../../../modules/monitoring/client.nix
+    ../../../modules/backup/client.nix
     ../../common
     ../../common/secrets.nix
     ../../common/qemu-guest
@@ -51,6 +52,11 @@ in {
         };
       };
     };
+  };
+
+  backup.client = {
+    enable = true;
+    host = hostname;
   };
 
   services.nginx = {

@@ -14,24 +14,32 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    services.borgbackup.jobs.backup_melisse_org = {
-      paths = cfg.paths;
-      doInit = true;
-      repo = "borg@backup.melisse.org:/var/lib/backups/melisse/${cfg.host}";
-      encryption = {
-        mode = "repokey-blake2";
-        passCommand = "cat /run/secrets/backup_passwd";
+  config = mkMerge
+    [ (mkIf cfg.enable {
+      services.borgbackup.jobs.backup_melisse_org = {
+        paths = cfg.paths ++ [ (mkIf config.services.postgresql.enable "/var/backup/postgresql") ];
+        doInit = true;
+        repo = "borg@backup.melisse.org:/var/lib/backups/melisse/${cfg.host}";
+        encryption = {
+          mode = "repokey-blake2";
+          passCommand = "cat /run/secrets/backup_passwd";
+        };
+        environment = { BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key"; };
+        compression = "auto,lzma";
+        startAt = "daily";
+        prune.keep = {
+          within = "1d"; # Keep all archives from the last day
+          daily = 7;
+          weekly = 4;
+          monthly = -1; # Keep at least one archive for each month
+        };
       };
-      environment = { BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key"; };
-      compression = "auto,lzma";
-      startAt = "daily";
-      prune.keep = {
-        within = "1d"; # Keep all archives from the last day
-        daily = 7;
-        weekly = 4;
-        monthly = -1; # Keep at least one archive for each month
-      };
-    };
-  };
+    }) (mkIf (cfg.enable && config.services.postgresql.enable) {
+        services.postgresqlBackup = {
+          enable = true;
+          startAt = "*-*-* 23:00:00";
+          backupAll = true;
+        };
+    })
+    ];
 }

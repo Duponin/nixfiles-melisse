@@ -90,7 +90,7 @@ in {
   backup.client = {
     enable = true;
     host = hostname;
-    paths = [ "/var/lib/nextcloud" "/var/backup/postgresql" ];
+    paths = [ "/var/lib/nextcloud" ];
   };
 
   age.secrets = {
