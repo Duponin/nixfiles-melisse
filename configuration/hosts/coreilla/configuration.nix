@@ -16,9 +16,6 @@ in {
   # Cf. above, we use openldap service from unstable
   disabledModules = [ "services/databases/openldap.nix" ];
 
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
   monitoring.client.enable = true;
   monitoring.client.host = hostname;
 

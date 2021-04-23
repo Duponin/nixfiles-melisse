@@ -8,8 +8,6 @@ in {
     ../../common/qemu-guest/uefi.nix
   ];
 
-  time.timeZone = "Europe/Paris";
-
   monitoring.client.enable = true;
   monitoring.client.host = hostname;
 

@@ -145,8 +145,6 @@ in {
     useDHCP = false;
   };
 
-  time.timeZone = "Europe/Paris";
-
   system.stateVersion = "20.09";
 
 }

@@ -45,4 +45,5 @@ in {
     };
   };
   nix.trustedUsers = [ "@wheel" ];
+  time.timeZone = "Europe/Paris";
 }
