@@ -11,10 +11,6 @@
   };
 
   # PROD HOSTS
-  "aedu.melisse.org" = { config, pkgs, ... }: {
-    deployment.tags = [ "prod" ];
-    imports = [ ./configuration/hosts/aedu/configuration.nix ];
-  };
   "anoat.melisse.org" = { config, pkgs, ... }: {
     deployment.tags = [ "prod" ];
     imports = [ ./configuration/hosts/anoat/configuration.nix ];
