@@ -49,11 +49,11 @@ in {
   networking = {
     defaultGateway = {
       address = "185.233.102.190";
-      interface = "enp38s0";
+      interface = "enp39s0";
     };
     defaultGateway6 = {
       address = "2a0c:e300:12::190";
-      interface = "enp38s0";
+      interface = "enp39s0";
     };
     bridges = {
       br-vm-wan.interfaces = [ vm_pub_int ];
