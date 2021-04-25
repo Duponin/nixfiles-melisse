@@ -86,11 +86,6 @@ in {
 
   # LDAP staging
   services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
     virtualHosts."ldap.staging.melisse.org" = {
       enableACME = true;
       forceSSL = true;

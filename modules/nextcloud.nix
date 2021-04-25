@@ -12,7 +12,7 @@ let
     (_: value: if value ? "content" then value.content else value) cfg.settings;
 
 in {
-
+  imports = [ ../configuration/common/nginx.nix ];
   options.nextcloud = {
 
     enable = mkEnableOption "Enable nextcloud";
@@ -38,7 +38,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-
     services.postgresql = {
       enable = true;
       authentication = ''
@@ -56,11 +55,6 @@ in {
     };
 
     services.nginx = {
-      enable = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
       virtualHosts = {
         "${cfg.url}" = {
           default = true;

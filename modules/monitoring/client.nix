@@ -2,6 +2,7 @@
 with lib;
 let cfg = config.monitoring.client;
 in {
+  imports = [ ../../configuration/common/nginx.nix ];
   options.monitoring.client = {
     enable = mkEnableOption "Enable the monitoring endpoint client";
     host = mkOption {
@@ -19,7 +20,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    imports = [ ../../configuration/common/nginx.nix ];
     services.netdata.enable = true;
     services.nginx = {
       virtualHosts."${cfg.host + "." + cfg.domain}" = {
