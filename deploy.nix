@@ -19,9 +19,9 @@
     deployment.tags = [ "prod" ];
     imports = [ ./configuration/hosts/coreilla/configuration.nix ];
   };
-  "malastare.melisse.org" = { config, pkgs, ... }: {
+  "florrum.melisse.org" = { config, pkgs, ... }: {
     deployment.tags = [ "prod" ];
-    imports = [ ./configuration/hosts/malastare/configuration.nix ];
+    imports = [ ./configuration/hosts/florrum/configuration.nix ];
   };
   "rishi.melisse.org" = { config, pkgs, ... }: {
     deployment.tags = [ "prod" ];
