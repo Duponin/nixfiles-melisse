@@ -9,6 +9,7 @@ in {
     ../../../modules/monitoring/client.nix
     ../../../modules/backup/client.nix
     ../../common
+    ../../common/nginx.nix
     ../../common/secrets.nix
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix
@@ -60,11 +61,6 @@ in {
   };
 
   services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
     virtualHosts."ldap.melisse.org" = {
       enableACME = true;
       forceSSL = true;

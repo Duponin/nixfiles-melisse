@@ -1,6 +1,8 @@
 { config, ... }:
 
 {
+  imports = [ ../../common/nginx.nix ];
+
   virtualisation.docker = {
     enable = true;
     extraOptions = ''

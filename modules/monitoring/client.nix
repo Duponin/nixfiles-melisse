@@ -19,14 +19,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    imports = [ ../../configuration/common/nginx.nix ];
     services.netdata.enable = true;
     services.nginx = {
-      enable = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
       virtualHosts."${cfg.host + "." + cfg.domain}" = {
         enableACME = true;
         forceSSL = true;
@@ -46,10 +41,6 @@ in {
           '';
         };
       };
-    };
-    security.acme = {
-      acceptTerms = true;
-      email = "admin+acme@melisse.org";
     };
   };
 }
