@@ -20,6 +20,7 @@ in {
   "ldap_admin.age".publicKeys = users ++ [ coreilla kessel ];
   "nextcloud_admin.age".publicKeys = users ++ [ sullust kessel ];
   "sullust_backup_passwd.age".publicKeys = users ++ [ sullust ];
+  "coreilla_backup_passwd.age".publicKeys = users ++ [ coreilla ];
   "coruscant_wireguard_privatekey.age".publicKeys = users ++ [ coruscant ];
   "florrum_wireguard_privatekey.age".publicKeys = users ++ [ florrum ];
 }
