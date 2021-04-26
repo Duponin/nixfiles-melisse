@@ -44,6 +44,12 @@ in {
       ];
       path = "/var/lib/backups/melisse/sullust";
     };
+    melisse_coreilla = {
+      authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDiqPblq1nqIQtP9YHkVMD0pwKsyL2yeK6KMdeQYoVrD root@coreilla"
+      ];
+      path = "/var/lib/backups/melisse/coreilla";
+    };
   };
 
   system.stateVersion = "20.09";
