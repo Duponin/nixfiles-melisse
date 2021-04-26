@@ -49,11 +49,11 @@ in {
   networking = {
     defaultGateway = {
       address = "185.233.102.190";
-      interface = "enp39s0";
+      interface = "enp38s0";
     };
     defaultGateway6 = {
       address = "2a0c:e300:12::190";
-      interface = "enp39s0";
+      interface = "enp38s0";
     };
     bridges = {
       br-vm-wan.interfaces = [ vm_pub_int ];
@@ -110,9 +110,6 @@ in {
       enp36s0f0.useDHCP = false;
       enp36s0f.useDHCP = false;
       enp38s0 = {
-        # This is the host interface, it should only be used for
-        # admin purpose and nothing else
-
         useDHCP = false;
         # FIXME MTU is not applied, it has to be done by hand
         mtu = 1378;

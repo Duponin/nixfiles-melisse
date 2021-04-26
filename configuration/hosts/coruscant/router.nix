@@ -12,8 +12,8 @@
     enable = true;
     internalIPs = [ "10.1.0.0/16" ];
     internalInterfaces = [ "br-vm-nat" ];
-    externalIP = "185.233.102.134";
-    externalInterface = "br-vm-wan";
+    externalIP = "185.233.102.133";
+    externalInterface = "enp38s0";
   };
 
   # Needed to have IPv6 routing to work
