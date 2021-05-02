@@ -8,6 +8,7 @@ in {
     (nixpkgs-unstable + "/nixos/modules/services/databases/openldap.nix")
     ../../../modules/monitoring/client.nix
     ../../../modules/backup/client.nix
+    ../../../modules/openldap/backup.nix
     ../../common
     ../../common/secrets.nix
     ../../common/qemu-guest
@@ -57,6 +58,16 @@ in {
   backup.client = {
     enable = true;
     host = hostname;
+    paths = [ "/var/backup/postgresql" "/var/backup/openldap" ];
+  };
+
+  services.openldapBackup = {
+    enable = true;
+    startAt = "*-*-* 23:00:00";
+    host = "ldaps://ldap.melisse.org";
+    basedn = "dc=melisse,dc=org";
+    binddn = "cn=admin,dc=melisse,dc=org";
+    passwdFile = "/run/secrets/ldap_admin";
   };
 
   services.nginx = {
@@ -191,7 +202,12 @@ in {
       };
     };
   };
-  age.secrets = { ldap_admin = { file = ../../../secrets/ldap_admin.age; }; };
+  age.secrets = {
+    ldap_admin = {
+      file = ../../../secrets/ldap_admin.age;
+      owner = "openldap";
+    };
+  };
 
   # Dolibarr
   services.postgresql = {

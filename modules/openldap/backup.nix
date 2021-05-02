@@ -88,6 +88,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d '${cfg.location}' 0700 openldap - - -"
+    ];
     systemd.services.openldapBackup =
       openldapBackupService "${config.services.openldap.package}/bin/ldapsearch -H ${cfg.host} -b ${cfg.basedn} -D ${cfg.binddn} -w `${pkgs.coreutils}/bin/cat ${cfg.passwdFile}`";
   };
