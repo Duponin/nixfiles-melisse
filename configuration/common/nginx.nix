@@ -8,6 +8,7 @@
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;
+    recommendedTlsSettings = true;
 
     # Only allow PFS-enabled ciphers with AES256
     sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
@@ -39,7 +40,6 @@
       # This might create errors
       proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
     '';
-    recommendedTlsSettings = true;
   };
 
   security.acme = {

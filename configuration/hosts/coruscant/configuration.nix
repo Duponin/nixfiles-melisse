@@ -143,6 +143,12 @@ in {
     useDHCP = false;
   };
 
+  services.nginx.virtualHosts."185.233.102.133" = {
+    globalRedirect = "melisse.org";
+  };
+  services.nginx.virtualHosts."185.233.102.134" = {
+    globalRedirect = "melisse.org";
+  };
   services.nginx.virtualHosts."melisse.org" = {
     default = true;
     enableACME = true;
