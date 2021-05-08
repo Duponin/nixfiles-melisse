@@ -10,6 +10,7 @@ in {
     ../../common/hypervisor.nix
     ./hardware-configuration.nix
     ./dhcp.nix
+    ../../common/nginx.nix
     ./router.nix
     ./docker.nix
     ./wireguard.nix
@@ -140,6 +141,18 @@ in {
       "1.1.1.1"
     ];
     useDHCP = false;
+  };
+
+  services.nginx.virtualHosts."melisse.org" = {
+    default = true;
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      root = "/srv/www/melisse.org/";
+      extraConfig = ''
+        proxy_ssl_server_name on;
+      '';
+    };
   };
 
   system.stateVersion = "20.09";
