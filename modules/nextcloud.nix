@@ -67,7 +67,7 @@ in {
     services.nextcloud = {
       enable = true;
       https = true;
-      package = pkgs.nextcloud20;
+      package = pkgs.nextcloud21;
       hostName = "${cfg.url}";
       config = {
         dbname = "nextcloud";
