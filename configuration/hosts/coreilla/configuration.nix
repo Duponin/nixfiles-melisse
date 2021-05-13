@@ -188,7 +188,7 @@ in {
         "cn=module{0}" = {
           attrs = {
             objectClass = [ "olcModuleList" ];
-            olcModuleLoad = "ppolicy.la";
+            olcModuleLoad = [ "ppolicy.la" "memberof.la" "refint" ];
           };
         };
         "olcOverlay=ppolicy,olcDatabase={1}mdb" = {
@@ -197,6 +197,24 @@ in {
             olcOverlay = "ppolicy";
             olcPPolicyDefault = "cn=default,ou=policies,dc=melisse,dc=org";
             olcPPolicyHashCleartext = "TRUE";
+          };
+        };
+        "olcOverlay={0}memberof,olcDatabase={1}mdb" = {
+          attrs = {
+            objectClass = [ "olcConfig" "olcMemberOf" "olcOverlayConfig" "top" ];
+            olcOverlay = "memberof";
+            olcMemberOfDangling = "ignore";
+            olcMemberOfRefInt = "TRUE";
+            olcMemberOfGroupOC = "groupOfUniqueNames";
+            olcMemberOfMemberAD = "uniqueMember";
+            olcMemberOfMemberOfAD = "memberOf";
+          };
+        };
+        "olcOverlay={1}refint,olcDatabase={1}mdb" = {
+          attrs = {
+            objectClass = [ "olcConfig" "olcOverlayConfig" "olcRefintConfig" "top" ];
+            olcOverlay = "{1}refint";
+            olcRefintAttribute = "memberof uniquemember manager owner";
           };
         };
       };
