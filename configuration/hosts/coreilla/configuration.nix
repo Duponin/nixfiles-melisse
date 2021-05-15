@@ -64,10 +64,7 @@ in {
   services.openldapBackup = {
     enable = true;
     startAt = "*-*-* 23:00:00";
-    host = "ldaps://ldap.melisse.org";
-    basedn = "dc=melisse,dc=org";
-    binddn = "cn=admin,dc=melisse,dc=org";
-    passwdFile = "/run/secrets/ldap_admin";
+    backupCmd = "slapcat -n 1";
   };
 
   services.nginx = {

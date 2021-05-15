@@ -53,36 +53,12 @@ in {
         '';
       };
 
-      host = mkOption {
+      backupCmd = mkOption {
         type = types.str;
         description = ''
-          URL of the OpenLDAP host to backup;
+          The backup command to create an openLDAP dump.
         '';
-        example = "ldap://ldap.example.org";
-      };
-
-      basedn = mkOption {
-        type = types.str;
-        description = ''
-          Base DN of the OpenLDAP host.
-        '';
-        example = "dc=example,dc=org";
-      };
-
-      binddn = mkOption {
-        type = types.str;
-        description = ''
-          Distinguished Name to bind the OpenLDAP directory.
-        '';
-        example = "cn=admin,dc=example,dc=org";
-      };
-
-      passwdFile = mkOption {
-        type = types.str;
-        description = ''
-          Path to the BindDN password File.
-        '';
-        example = "/path/to/secrets";
+        example = "slapcat -n 1";
       };
     };
   };
@@ -92,7 +68,7 @@ in {
       "d '${cfg.location}' 0700 openldap - - -"
     ];
     systemd.services.openldapBackup =
-      openldapBackupService "${config.services.openldap.package}/bin/ldapsearch -H ${cfg.host} -b ${cfg.basedn} -D ${cfg.binddn} -w `${pkgs.coreutils}/bin/cat ${cfg.passwdFile}`";
+      openldapBackupService "${config.services.openldap.package}/bin/${cfg.backupCmd}";
   };
 
 }
