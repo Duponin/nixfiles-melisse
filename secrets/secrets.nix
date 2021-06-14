@@ -12,7 +12,7 @@ let
   florrum =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5i+V0O8vCVAw/ds4wnz99mRTYP3OgBcVyZuTT4ctWL";
   kessel =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrjpGuh1fHXlBrGYrCrAHMUJ/IVWOMyZhaFztGLqWyN";
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJEJc0zlDOOqvtDtY9njMM2i+Off/Qb5UyI7fpL+NgOY";
   sullust =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj4Gqib56G8kKgOUxcZeM4YxEhos41v6Ztrf2/6gs+M";
   systems = [ coreilla kessel ];
