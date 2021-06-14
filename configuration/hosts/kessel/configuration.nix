@@ -42,6 +42,11 @@ in {
     };
   };
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   nextcloud = {
