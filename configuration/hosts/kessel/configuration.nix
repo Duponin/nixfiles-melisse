@@ -331,6 +331,12 @@ in {
       '';
     };
   };
+
+  services.wiki-js = {
+    enable = true;
+    settings.db.host = "/run/postgresql";
+  };
+
   age.secrets = {
     nextcloud_admin = {
       file = ../../../secrets/nextcloud_admin.age;
