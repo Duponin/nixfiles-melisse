@@ -29,7 +29,7 @@ in {
     };
     defaultGateway = {
       address = "185.233.102.190";
-      interface = "ens10";
+      interface = "ens4";
     };
     hostName = "coreilla";
     useDHCP = false;
@@ -43,7 +43,7 @@ in {
           }];
         };
       };
-      ens10 = {
+      ens4 = {
         mtu = 1378;
         ipv4 = {
           addresses = [{
