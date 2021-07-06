@@ -107,6 +107,16 @@ in {
         '';
       };
     };
+    virtualHosts."wiki.staging.melisse.org" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://localhost:3000";
+        extraConfig = ''
+          proxy_ssl_server_name on;
+        '';
+      };
+    };
   };
   services.openldap = {
     enable = true;
