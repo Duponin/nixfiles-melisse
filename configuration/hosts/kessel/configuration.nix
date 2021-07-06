@@ -9,6 +9,7 @@ in {
     ../../../modules/monitoring/client.nix
     ../../../modules/nextcloud.nix
     ../../common
+    ../../common/nginx.nix
     ../../common/secrets.nix
     ../../common/qemu-guest
     ../../common/qemu-guest/uefi.nix

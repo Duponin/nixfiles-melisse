@@ -28,10 +28,7 @@ in {
       };
     };
   };
-  security = {
-    hideProcessInformation = true;
-    sudo.wheelNeedsPassword = false;
-  };
+  security.sudo.wheelNeedsPassword = false;
   services = {
     fail2ban = {
       enable = true;
