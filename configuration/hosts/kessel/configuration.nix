@@ -344,21 +344,24 @@ in {
 
   services.wiki-js = {
     enable = true;
-    settings.db.host = "/run/postgresql";
-  };
-    services.postgresql = {
-      enable = true;
-      authentication = ''
-        local all all trust
-        host all all 127.0.0.1/32 trust
-        host all all ::1/128      trust
-      '';
-      ensureDatabases = [ "wikijs" ];
-      ensureUsers = [{
-        name = "wikijs";
-        ensurePermissions = { "DATABASE wikijs" = "ALL PRIVILEGES"; };
-      }];
+    settings.db = {
+      db = "wikijs";
+      host = "/run/postgresql";
     };
+  };
+  services.postgresql = {
+    enable = true;
+    authentication = ''
+      local all all trust
+      host all all 127.0.0.1/32 trust
+      host all all ::1/128      trust
+    '';
+    ensureDatabases = [ "wikijs" ];
+    ensureUsers = [{
+      name = "wikijs";
+      ensurePermissions = { "DATABASE wikijs" = "ALL PRIVILEGES"; };
+    }];
+  };
 
   age.secrets = {
     nextcloud_admin = {
