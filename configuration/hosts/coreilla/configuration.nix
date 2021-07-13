@@ -224,6 +224,13 @@ in {
     };
   };
 
+  services.wiki-js = {
+    enable = true;
+    settings.db = {
+      db = "wikijs";
+      host = "/run/postgresql";
+    };
+  };
   # Dolibarr
   services.postgresql = {
     enable = true;
@@ -231,11 +238,17 @@ in {
       host all all 127.0.0.1/32 trust
       host all all ::1/128 trust
     '';
-    ensureDatabases = [ "dolibarr" ];
-    ensureUsers = [{
-      name = "dolibarr";
-      ensurePermissions = { "DATABASE dolibarr" = "ALL PRIVILEGES"; };
-    }];
+    ensureDatabases = [ "dolibarr" "wikijs" ];
+    ensureUsers = [
+      {
+        name = "dolibarr";
+        ensurePermissions = { "DATABASE dolibarr" = "ALL PRIVILEGES"; };
+      }
+      {
+        name = "wikijs";
+        ensurePermissions = { "DATABASE wikijs" = "ALL PRIVILEGES"; };
+      }
+    ];
     # FIXME: user dolibarr has to be dolibarr database's owner
     # sudo -u postgres psql
     # ALTER DATABASE dolibarr owner to dolibarr;
