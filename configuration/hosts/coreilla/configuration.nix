@@ -68,6 +68,16 @@ in {
   };
 
   services.nginx = {
+    virtualHosts."wiki.melisse.org" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://localhost:3000";
+        extraConfig = ''
+          proxy_ssl_server_name on;
+        '';
+      };
+    };
     virtualHosts."ldap.melisse.org" = {
       enableACME = true;
       forceSSL = true;
