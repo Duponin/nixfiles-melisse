@@ -354,7 +354,6 @@ in {
 
   services.bitwarden_rs = {
     enable = true;
-    backupDir = "/var/backup/bitwarden";
     config = {
       domain = "https://bitwarden.staging.melisse.org";
       signupsAllowed = true;
