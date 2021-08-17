@@ -2,7 +2,7 @@
 
 {
   fileSystems."/var/lib/backups/heuzef" = {
-    device = "/dev/disk/by-uuid/66978328-978a-4943-b832-88201482756f";
+    device = "/dev/disk/by-uuid/11c7cc91-d00b-4102-b825-09eed543287b";
     fsType = "ext4";
   };
 
