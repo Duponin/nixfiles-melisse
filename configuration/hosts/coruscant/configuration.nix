@@ -12,6 +12,7 @@ in {
     ./dhcp.nix
     ../../common/nginx.nix
     ./router.nix
+    ./borg.nix
     ./docker.nix
     ./wireguard.nix
   ];
