@@ -5,9 +5,7 @@ let
 in {
   imports = [
     # Imports
-    ../../../modules/monitoring/client.nix
     ../../common
-    ../../common/hypervisor.nix
     ./hardware-configuration.nix
     ./dhcp.nix
     ../../common/nginx.nix
@@ -142,24 +140,6 @@ in {
       "1.1.1.1"
     ];
     useDHCP = false;
-  };
-
-  services.nginx.virtualHosts."185.233.102.133" = {
-    globalRedirect = "melisse.org";
-  };
-  services.nginx.virtualHosts."185.233.102.134" = {
-    globalRedirect = "melisse.org";
-  };
-  services.nginx.virtualHosts."melisse.org" = {
-    default = true;
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      root = "/srv/www/melisse.org/";
-      extraConfig = ''
-        proxy_ssl_server_name on;
-      '';
-    };
   };
 
   system.stateVersion = "20.09";
