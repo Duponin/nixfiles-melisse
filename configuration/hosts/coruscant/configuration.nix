@@ -43,9 +43,6 @@ in {
     fsType = "ext4";
   };
 
-  monitoring.client.enable = true;
-  monitoring.client.host = hostname;
-
   networking = {
     defaultGateway = {
       address = "185.233.102.190";
