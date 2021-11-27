@@ -8,7 +8,6 @@ in {
     ../../common
     ./hardware-configuration.nix
     ./dhcp.nix
-    ../../common/nginx.nix
     ./router.nix
     ./borg.nix
     ./docker.nix
