@@ -26,13 +26,6 @@ in {
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPq1UGdQQM8uTMkvgdws0bUYXUEaG1gWTte+41MpO4uz didyme@archipad"
         ];
       };
-      morph = { # User dedicated for deployements, Cf. anoat
-        isNormalUser = true;
-        extraGroups = admin_groups;
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWnwK4mp+j3Y+lPzfEfEYasOeYJH8Vp/7V4tjteSU4j morph@anoat.melisse.org"
-        ];
-      };
     };
   };
   security.sudo.wheelNeedsPassword = false;
