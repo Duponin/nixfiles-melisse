@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let admin_groups = [ "wheel" "libvirtd" ];
+let admin_groups = [ "wheel" "docker" ];
 in {
   environment.systemPackages = with pkgs; [ git ];
   users = {
