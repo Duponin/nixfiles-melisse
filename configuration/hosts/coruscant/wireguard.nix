@@ -10,7 +10,7 @@
       wg0 = {
         ips = [ "2a0c:e304:c0fe:20::1/64" ];
         listenPort = 51820;
-        privateKeyFile = "/run/secrets/wireguard_privatekey";
+        privateKeyFile = "/run/agenix/wireguard_privatekey";
         peers = [
           {
             publicKey = "LipBKld4iV7jYcE4tdIuscULUZs45+/g3BoPXZ4u41M=";
