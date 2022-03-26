@@ -13,11 +13,11 @@
   networking = {
     defaultGateway = {
       address = "185.233.102.190";
-      interface = "enp38s0";
+      interface = "ens18";
     };
     defaultGateway6 = {
       address = "2a0c:e300:12::190";
-      interface = "enp38s0";
+      interface = "ens18";
     };
     hostName = "borg";
     interfaces = {
