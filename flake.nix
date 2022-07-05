@@ -7,6 +7,10 @@
         system = "x86_64-linux";
         modules = [ ./configuration/hosts/borg/configuration.nix ];
       };
+      endor = nixos.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./configuration/hosts/endor/configuration.nix ];
+      };
     };
   };
 }
