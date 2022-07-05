@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let admin_groups = [ "wheel" ];
 in {
-  environment.systemPackages = with pkgs; [ git ];
+  environment.systemPackages = with pkgs; [ git vim ];
   users = {
     mutableUsers = false;
     users = {
