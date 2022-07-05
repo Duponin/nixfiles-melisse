@@ -6,6 +6,7 @@
     ../../common
     ../../common/qemu-guest
     ./hardware-configuration.nix
+    ./monero.nix
   ];
 
   boot.loader.grub.device = "/dev/sda";
