@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let admin_groups = [ "wheel" "docker" ];
+let admin_groups = [ "wheel" ];
 in {
   environment.systemPackages = with pkgs; [ git ];
   users = {
