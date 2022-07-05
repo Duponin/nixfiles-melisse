@@ -1,5 +1,9 @@
-with import <nixpkgs> { };
+{ pkgs ? import <nixpkgs> {} }:
 
-let
-  morph = callPackage (sources.morph) { };
-in mkShell { buildInputs = [ morph ]; }
+with pkgs;
+
+mkShell {
+  buildInputs = [
+    nixfmt
+  ];
+}
