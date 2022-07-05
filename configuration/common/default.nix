@@ -41,6 +41,13 @@ in {
       permitRootLogin = "no";
     };
   };
-  nix.trustedUsers = [ "@wheel" ];
+  nix = {
+    trustedUsers = [ "@wheel" ];
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+   };
+
   time.timeZone = "Europe/Paris";
 }
