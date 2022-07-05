@@ -4,6 +4,7 @@
   imports = [
     # Imports
     ../../common
+    ../../common/qemu-guest
     ./hardware-configuration.nix
     ./borg.nix
   ];

@@ -3,11 +3,20 @@
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "ata_piix" "uhci_hcd" "ehci_pci" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ # missing modules?
+    "ata_piix"
+    "ehci_pci"
+    "sd_mod"
+    "sr_mod"
+    "uhci_hcd"
+    "virtio_pci"
+    "virtio_scsi"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+
+  services.qemuGuest.enable = true;
 
   swapDevices = [ ];
 
