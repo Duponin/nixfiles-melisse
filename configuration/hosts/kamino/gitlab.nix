@@ -9,7 +9,15 @@
     port = 443;
     https = true;
 
-    smtp = { };
+    smtp = {
+      enable = true;
+      tls = true;
+      domain = "melisse.org";
+      address = "melisse.org";
+      authentication = "plain";
+      username = "gitlab";
+      passwordFile = "/var/lib/secrets/gitlab/smtpFile";
+    };
 
     backup = { };
 
