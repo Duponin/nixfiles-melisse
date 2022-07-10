@@ -11,6 +11,10 @@
         system = "x86_64-linux";
         modules = [ ./configuration/hosts/endor/configuration.nix ];
       };
+      kamino = nixos.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./configuration/hosts/kamino/configuration.nix ];
+      };
     };
   };
 }
