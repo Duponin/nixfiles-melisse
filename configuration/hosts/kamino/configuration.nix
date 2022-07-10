@@ -5,6 +5,7 @@
     # Imports
     ../../common
     ../../common/qemu-guest
+    ./gitlab.nix
     ./hardware-configuration.nix
   ];
 
